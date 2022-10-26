@@ -16,11 +16,63 @@ a {
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+  /* html { */
+  /*   color-scheme: dark; */
+  /* } */
+  /* body { */
+  /*   color: white; */
+  /*   background: black; */
+  /* } */
 }
+
+.settingsmenu {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.text-input {
+  background: #fff;
+  border-radius: 100px;
+  border-bottom-right-radius:0;
+  border-top-right-radius:0;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  border: none;
+  color: #000;
+}
+
+.text-input:focus{
+  /* box-shadow: 0px 10px 17px -10px #C523B4,0px 5px 20px 0px rgba(238,228,233,0.2); */
+  border: 2px solid #C523B4;
+  border-right: none;
+  outline: none;
+}
+
+.text-input-home {
+  width: 100%;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.input-container {
+  width: 90%;
+}
+
+.input-bar-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.button-container {
+  position: relative;
+}
+.home-input-button{
+  position: fixed;
+  right: 5%;
+  border-radius: 100px;
+  padding: 0.5rem;
+  padding-left:2rem;
+  padding-right:2rem;
+}
+

@@ -1,10 +1,14 @@
 Most recent changes first
 ---------------------------------------------------------------------
 
-[Today's date here]
+[26/10]
 
-- what did we do today? 
+- created homepage
+- implemented global state
+- implemented theming
+- implemented url_list functionality (add/remove items)
 
 ## TODO
-## [1] create homepage 
+## [1] style url list properly 
+## [2] creat next page
 ---------------------------------------------------------------------
