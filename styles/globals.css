@@ -76,3 +76,21 @@ a {
   padding-right:2rem;
 }
 
+.url-link:hover{
+  color: #0070f3;
+}
+
+.url-list-container {
+  position: relative;
+  box-shadow: 0px 10px 17px -15px #C523B4,0px 5px 20px 0px rgba(238,228,233,0.2);
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.remove-url-btn{
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  border-radius: 100px;
+}

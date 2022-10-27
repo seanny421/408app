@@ -7,7 +7,7 @@ import { ThemeProvider, CssBaseline, Button } from '@mui/material'
 import {darkTheme, lightTheme} from '../styles/themes'
 import SettingsMenu from '../components/SettingsMenu'
 import HomeInputBar from '../components/HomeInputBar'
-import URL_List from '../components/URL_List'
+import URL_List from '../components/URL/URL_List'
 
 const Home: NextPage = () => {
   const store = useStore();
@@ -30,7 +30,8 @@ const Home: NextPage = () => {
 
         <main className={styles.main}>
           <SettingsMenu/>
-          <h1 className={styles.title}>Welcome to 408 Project</h1>
+          <h2 className={styles.title}>Welcome to 408 Project</h2>
+          <p>Please enter a url to get started.</p>
           <div className='input-container'>
             <HomeInputBar/>
             <URL_List/>
