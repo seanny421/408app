@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import useStore from "../../global/state"
-import { Button } from "@mui/material";
-import RemoveIcon from '@mui/icons-material/Remove';
+import CancelIcon from '@mui/icons-material/Cancel';
 import { styled } from "@mui/system"
+import { lightTheme, darkTheme } from "../../styles/themes";
 
 const Card = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -13,6 +13,15 @@ const Card = styled('div')(({ theme }) => ({
   background: '#000',
   color: '#fff'
 }));
+
+const removeBtnStyle = (isLight: boolean) => ({
+  fontSize: 25, 
+  position: 'absolute', 
+  top: '10px', 
+  left: '10px', 
+  color: (isLight) ? `${lightTheme.palette.primary.main}` : `${darkTheme.palette.primary.main}`,
+  cursor: 'pointer',
+});
 
 export default function URL_List(){
   const store = useStore(); 
@@ -29,7 +38,7 @@ export default function URL_List(){
         return(
           <Card className="url-list-" key={i}>
             <h3 className="url-link"><a href={url} target="_blank" rel="noreferrer">{url}</a></h3>
-            <Button className='remove-url-btn' variant="contained"  onClick={() => store.removeFromUrlList(url)}><RemoveIcon/></Button>
+            <CancelIcon onClick={() => store.removeFromUrlList(url)} sx={removeBtnStyle(store.isLight)}/>
           </Card>
         );
       })}

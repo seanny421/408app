@@ -88,9 +88,11 @@ a {
   margin-bottom: 1rem;
 }
 
-.remove-url-btn{
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  border-radius: 100px;
-}
+/* .remove-url-btn{ */
+/*   position: absolute; */
+/*   top: 5px; */
+/*   left: 10px; */
+/*   border-radius: 100%; */
+/*   width: 1px; */
+/* } */
+
