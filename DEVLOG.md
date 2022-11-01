@@ -1,15 +1,22 @@
 Most recent changes first
 ---------------------------------------------------------------------
 
+[1/11]
+
+- almost finished styling url list 
+- implemented youtubeDataAPI with fetching data (thumbnail, title, description etc)
+
+## TODO
+## [1] style url list responsively 
+## [2] decouple url fetches from client to server 
+## [3] inform user of error if url is input incorrectly 
+## [4] create next page
+---------------------------------------------------------------------
+
 [27/10]
 
 - stared styling url list 
 
-## TODO
-## [1] style url list properly 
-## [2] get video details (title, desc etc) for each URL
-## [3] check if user input is correct i.e. valid url, no spaces etc
-## [4] create next page
 ---------------------------------------------------------------------
 
 [26/10]

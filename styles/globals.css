@@ -94,3 +94,7 @@ a {
   right: 10px;
   border-radius: 100px;
 }
+
+.image-wrapper {
+  overflow: hidden;
+}

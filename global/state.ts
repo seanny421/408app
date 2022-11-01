@@ -1,5 +1,7 @@
+import {Url} from 'url';
 import create from 'zustand'
 import {devtools, persist} from 'zustand/middleware';
+import { UrlObject } from './types';
 
 type Store = {
   isLight: boolean;
@@ -7,9 +9,9 @@ type Store = {
   toggleTheme: () => void;
   toggleSettings: () => void;
 
-  urlList: string[];
-  addToUrlList: (item:string) => void; //should this be boolean?
-  removeFromUrlList: (item:string) => void;
+  urlList: UrlObject[];
+  addToUrlList: (item:UrlObject) => void; //should this be boolean?
+  removeFromUrlList: (item:UrlObject) => void;
 }
 
 const useStore = create<Store>()(
@@ -20,8 +22,8 @@ const useStore = create<Store>()(
       urlList: [],
       toggleTheme: () => set((state) => ({isLight: !state.isLight})),
       toggleSettings: () => set((state) => ({shown: !state.shown})),
-      addToUrlList: (item:string) => set((state) => ({urlList: [...state.urlList, item]})),
-      removeFromUrlList: (item:string) => set((state) => ({urlList: state.urlList.filter(url => url != item)})),
+      addToUrlList: (item:UrlObject) => set((state) => ({urlList: [...state.urlList, item]})),
+      removeFromUrlList: (item:UrlObject) => set((state) => ({urlList: state.urlList.filter(url => url != item)})),
     }), {name: 'boolean-storage'})
   )
 )
