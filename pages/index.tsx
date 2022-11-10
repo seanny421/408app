@@ -35,8 +35,6 @@ const Home: NextPage = () => {
           <div className='input-container'>
             <HomeInputBar/>
             <URL_List/>
-            <div className='button-container'>
-            </div>
           </div>
         </main>
       </div>

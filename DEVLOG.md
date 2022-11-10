@@ -7,13 +7,14 @@ Most recent changes first
 - implemented youtubeDataAPI with fetching data (thumbnail, title, description etc)
 
 ## TODO
-## [1] style url list responsively 
-## [2] make sure if we don't have high quality thumbnail then we 
+## [1] get captions working correctly
+## [2] style url list responsively 
+## [3] make sure if we don't have high quality thumbnail then we 
 ##     substitute (can maybe make a catchall function that searches if something exists and if it does returns it if not we return something else within the object)
 ##     function getBestThumbnailOption()
-## [2] decouple url fetches from client to server 
-## [3] inform user of error if url is input incorrectly 
-## [4] create next page
+## [4] decouple url fetches from client to server 
+## [5] inform user of error if url is input incorrectly 
+## [6] create next page
 ---------------------------------------------------------------------
 
 [27/10]
