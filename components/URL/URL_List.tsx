@@ -6,6 +6,7 @@ import { lightTheme, darkTheme } from "../../styles/themes";
 import Paper  from "@mui/material/Paper";
 import Thumbnail from "./Thumbnail";
 import { UrlObject } from "../../global/types";
+import NextPageBtn from "../NextPageBtn";
 
 const Card = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -54,6 +55,7 @@ export default function URL_List(){
           </Card>
         );
       })}
+      <NextPageBtn/>
     </section>
   );
 }

@@ -98,3 +98,7 @@ a {
 .image-wrapper {
   overflow: hidden;
 }
+
+.primary-btn{
+  border-radius:100px
+}
