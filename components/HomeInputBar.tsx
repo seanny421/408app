@@ -51,7 +51,7 @@ export default function HomeInputBar(){
           style={{border:`${store.isLight ? `1px solid ${lightTheme.palette.primary.main}`: 'none'}` , borderRadius: '100px', boxShadow: `${store.isLight ? `-5px 10px 17px -10px ${lightTheme.palette.primary.main},0px 5px 20px 0px rgba(238,228,233,0.2)`: ''}`}} 
           endAdornment={
             <InputAdornment position="end">
-              <Button variant="contained" onClick={addToUrlList} style={{borderRadius: 100}}><AddIcon/></Button>
+              <Button variant="contained" onClick={addToUrlList} className="primary-btn"><AddIcon/></Button>
             </InputAdornment>
             }  
           className='text-input text-input-home'/>
