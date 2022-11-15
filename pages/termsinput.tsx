@@ -6,30 +6,17 @@ import {useEffect, useState} from 'react'
 import { ThemeProvider, CssBaseline, Button } from '@mui/material'
 import {darkTheme, lightTheme} from '../styles/themes'
 import SettingsMenu from '../components/SettingsMenu'
-import MatchList from '../components/MatchList'
+import TermInputBar from '../components/TermInputBar'
+import TermList from '../components/Terms/TermList'
 
-const Captions: NextPage = () => {
+const TermsInput: NextPage = () => {
   const store = useStore();
-  const [isLight, setIsLight] = useState(true); //default is darkmode
+  const [isLight, setIsLight] = useState(false); //default is darkmode
 
   //run on store.isLight update
   useEffect(() => {
     setIsLight(store.isLight);
   }, [store.isLight]);
-
-  useEffect(() => {
-    console.log(store.urlList[0].captions);
-    store.urlList.forEach(url => console.log(url.captions))
-    // console.log(store.urlList[0].videoInfo.id);
-    // getCaptionForId(store.urlList[0].videoInfo.id);
-  }, [store.urlList]);
-
-  function getCaptionForId(vidId: string){
-    fetch('http://localhost:8080?vidId='+vidId)
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err))
-  }
 
   return (
     <ThemeProvider theme={isLight ? lightTheme : darkTheme}>
@@ -43,12 +30,18 @@ const Captions: NextPage = () => {
 
         <main className={styles.main}>
           <SettingsMenu/>
-          <h2 className={styles.title}>Captions</h2>
-          <MatchList/>
+          <h2 className={styles.title}>TermsInput</h2>
+          <p>Please input any words/phrases you wish to search for</p>
+          <div className='input-container'>
+            <TermInputBar/>
+            <div className='button-container'>
+            </div>
+          </div>
+          <TermList/>
         </main>
       </div>
     </ThemeProvider>
   )
 }
 
-export default Captions
+export default TermsInput

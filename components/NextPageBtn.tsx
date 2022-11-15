@@ -17,7 +17,7 @@ export default function NextPageBtn(){
 
     return(
       <div style={{display: `${display}`, justifyContent: 'flex-end'}}>
-        <Button href="/captions" variant="contained" className="primary-btn">Next</Button>
+        <Button href="/termsinput" variant="contained" className="primary-btn">Next</Button>
       </div>
     )
 }
