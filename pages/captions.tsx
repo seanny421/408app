@@ -18,18 +18,9 @@ const Captions: NextPage = () => {
   }, [store.isLight]);
 
   useEffect(() => {
-    console.log(store.urlList[0].captions);
     store.urlList.forEach(url => console.log(url.captions))
-    // console.log(store.urlList[0].videoInfo.id);
-    // getCaptionForId(store.urlList[0].videoInfo.id);
   }, [store.urlList]);
 
-  function getCaptionForId(vidId: string){
-    fetch('http://localhost:8080?vidId='+vidId)
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err))
-  }
 
   return (
     <ThemeProvider theme={isLight ? lightTheme : darkTheme}>
