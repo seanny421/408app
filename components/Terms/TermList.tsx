@@ -41,17 +41,17 @@ export default function TermList(){
 
   return (
     <section id="term-list">
-      <div style={{display: 'flex', flexWrap:'wrap', justifyContent: 'center', alignItems: 'center', marginBottom: '3rem'}}>
+      <div data-testid="terms-card-container" style={{display: 'flex', flexWrap:'wrap', justifyContent: 'center', alignItems: 'center', marginBottom: '3rem'}}>
         {localList?.map(function(term, i){
           return(
             <Card className="" key={i}>
-              <CancelIcon onClick={() => store.removeFromTermsList(term)} sx={removeBtnStyle(store.isLight)}/>
+              <CancelIcon data-testid={`remove-btn-`+i} onClick={() => store.removeFromTermsList(term)} sx={removeBtnStyle(store.isLight)}/>
               <h3 className="url-link">{term}</h3>
             </Card>
           );
         })}
       </div>
-      <div style={{display: 'flex', justifyContent: 'flex-end', position: 'absolute', right: 70}}>
+      <div data-testid="nextpage-btn-container" style={{display: `${localList?.length > 0 ? 'flex': 'none'}`, justifyContent: 'flex-end', position: 'absolute', right: 70}}>
         <Button href="/captions" variant="contained" className="primary-btn">Next</Button>
       </div>
     </section>
