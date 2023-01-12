@@ -28,21 +28,13 @@ const removeBtnStyle = (isLight: boolean) => ({
 export default function MatchList(){
   const store = useStore(); 
   const [localTermList, setLocalTermList] = useState<string[]>([]);
-  const [matches, setMatches] = useState([]);
-  const [matches2, setMatches2] = useState({});
-  const [matchDict, setMatchDict] = useState({
-    "shank":[5.02, 4.10]
-    })
+  const [matchDict, setMatchDict] = useState({}) //does this need to be in state?
+  const [finishedMatching, setFinishedMatching] = useState(false)
 
   //runs every time store.urlList is changed 
   useEffect(() => {
     setLocalTermList(store.termsList);
   }, [store.termsList]);
-
-  useEffect(() => {
-    //logging captions for dev
-    store.urlList.forEach(url => console.log(url.captions))
-  }, [store.urlList]);
 
   //run once on component load
   useEffect(() => {
@@ -53,40 +45,43 @@ export default function MatchList(){
   }, [localTermList])
   
 
+  //takes 2 params: timestamp, term
+  //adds timestamp to the array for corresponding term in dictionary 
+  function addToMatchDict(timestamp:number, term:string){
+    if(matchDict[term] && !matchDict[term].includes(timestamp)){ //prevent duplicates
+      const arr = matchDict[term]
+      arr.push(timestamp)
+    }
+    //if term is empty, initialise it
+    else {matchDict[term] = [timestamp]}
+  }
   //takes string arr, loops through captions arr and finds matches
   function matchCaptions(terms:string[], captions:object[]){
-      for(let j = 0; j < captions.length; j++){
-        for(let i = 0; i < terms.length; i++){
-          if(captions[j].text.includes(terms[i])){
-            const timestamp = captions[j].start;
-            console.log(matchDict[terms[i]])
-            if(matchDict[terms[i]] && !matchDict[terms[i]].includes(timestamp)){
-              const arr = matchDict[terms[i]]
-              arr.push(timestamp)
-            }
-            else {
-              matchDict[terms[i]] = [timestamp]
-            }
-
+      for(let i = 0; i < captions.length; i++){
+        for(let j = 0; j < terms.length; j++){
+          if(captions[i].text.includes(terms[j])){
+            addToMatchDict(captions[i].start, terms[j])
+            setFinishedMatching(true);
           }
         }
       }
   }
 
-
   return (
     <section id="url-list">
-      {localTermList?.map(function(term, i){
+      {finishedMatching && Object.keys(matchDict).map(function(term, i){
         return(
           <Card className="url-list-" key={i}>
-            <h3 className="url-link">{term}</h3>
-            <h4>{matchDict[term]}</h4>
+            <h3 className="">{term}</h3>
+            <h4>Timestamps it appears:</h4>
+            {matchDict[term]?.map(function(timestamp, i){
+              return(<h4 key={i}>{timestamp}</h4>)
+            })}
             <div id="flex-container" style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
             </div>
           </Card>
         );
       })}
-
     </section>
   );
 }

@@ -15,9 +15,13 @@ How is our caption data structured:
     start: 0.12
     text: "some string here"
 
+- implemented term matching
+- we now display all timestamps term occurs at to user
+<! phrases may be different? as phrases can carry over from one caption line to the next>
+
 
 ## TODO
-## [1] match terms - display matches to user
+## [1] work on matching phrases? see above comment on things to keep in mind 
 ## [2] make sure if we don't have high quality thumbnail then we 
 ##     substitute (can maybe make a catchall function that searches if something exists and if it does returns it if not we return something else within the object)
 ##     function getBestThumbnailOption()
