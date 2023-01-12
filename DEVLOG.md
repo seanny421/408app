@@ -1,18 +1,46 @@
 Most recent changes first
 ---------------------------------------------------------------------
 
+[12/01]
+
+Thinking about how we are matching terms
+Let's start with showing exact matches
+
+How is our caption data structured:
+  array of JSON data? []  
+  each item in arr has .duration .start .text
+  e.g.
+  0:
+    duration: 7.56
+    start: 0.12
+    text: "some string here"
+
+- implemented term matching
+- we now display all timestamps term occurs at to user
+<! phrases may be different? as phrases can carry over from one caption line to the next>
+
+
+## TODO
+## [1] work on matching phrases? see above comment on things to keep in mind 
+## [2] make sure if we don't have high quality thumbnail then we 
+##     substitute (can maybe make a catchall function that searches if something exists and if it does returns it if not we return something else within the object)
+##     function getBestThumbnailOption()
+## [3] decouple url fetches from client to server 
+## [4] inform user of error if url is input incorrectly 
+## [5] style url list responsively 
+---------------------------------------------------------------------
+
+[07/01]
+
+- implemented partial testing for termsinput page
+
+---------------------------------------------------------------------
+
 [05/01]
 
 - starting implementation of testing 
+- implemented component testing on index
 
-## TODO
-## [1] implement testing (Jest / MochaJS) !IMPORTANT
-## [2] style url list responsively 
-## [3] make sure if we don't have high quality thumbnail then we 
-##     substitute (can maybe make a catchall function that searches if something exists and if it does returns it if not we return something else within the object)
-##     function getBestThumbnailOption()
-## [4] decouple url fetches from client to server 
-## [5] inform user of error if url is input incorrectly 
 ---------------------------------------------------------------------
 
 [15/11]

@@ -12,12 +12,15 @@ const Captions: NextPage = () => {
   const store = useStore();
   const [isLight, setIsLight] = useState(true); //default is darkmode
 
+
   //run on store.isLight update
   useEffect(() => {
     setIsLight(store.isLight);
   }, [store.isLight]);
 
+  //run once on store.urlList update
   useEffect(() => {
+    //logging captions for dev
     store.urlList.forEach(url => console.log(url.captions))
   }, [store.urlList]);
 
