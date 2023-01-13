@@ -4,7 +4,11 @@ import useStore from "../global/state";
 import { lightTheme } from '../styles/themes'
 import { useState } from "react";
 
-export default function HomeInputBar(){
+interface Props { 
+  isLight: boolean
+}
+
+export default function HomeInputBar(props:Props){
   const store = useStore();
   const [inputBarText, setInputBarText] = useState<string>("");
 
@@ -58,7 +62,7 @@ export default function HomeInputBar(){
           value={inputBarText}
           placeholder="Enter url here"
           disableUnderline={true} 
-          style={{border:`${store.isLight ? `1px solid ${lightTheme.palette.primary.main}`: 'none'}` , borderRadius: '100px', boxShadow: `${store.isLight ? `-5px 10px 17px -10px ${lightTheme.palette.primary.main},0px 5px 20px 0px rgba(238,228,233,0.2)`: ''}`}} 
+          style={{border:`${props.isLight ? `1px solid ${lightTheme.palette.primary.main}`: 'none'}` , borderRadius: '100px', boxShadow: `${store.isLight ? `-5px 10px 17px -10px ${lightTheme.palette.primary.main},0px 5px 20px 0px rgba(238,228,233,0.2)`: ''}`}} 
           endAdornment={
             <InputAdornment position="end">
               <Button data-testid="submitbtn" variant="contained" onClick={addToUrlList} className="primary-btn"><AddIcon/></Button>
