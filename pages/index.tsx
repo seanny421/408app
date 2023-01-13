@@ -11,7 +11,7 @@ import URL_List from '../components/URL/URL_List'
 
 const Home: NextPage = () => {
   const store = useStore();
-  const [isLight, setIsLight] = useState(true); //default is darkmode
+  const [isLight, setIsLight] = useState(false); //default is darkmode
 
   //run on store.isLight update
   useEffect(() => {
@@ -33,7 +33,7 @@ const Home: NextPage = () => {
           <h2 className={styles.title}>Welcome to 408 Project</h2>
           <p>Please enter a url to get started.</p>
           <div className='input-container'>
-            <HomeInputBar/>
+            <HomeInputBar isLight={isLight}/>
             <URL_List/>
             <div className='button-container'>
             </div>

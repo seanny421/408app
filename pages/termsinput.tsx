@@ -33,7 +33,7 @@ const TermsInput: NextPage = () => {
           <h2 className={styles.title}>TermsInput</h2>
           <p>Please input any words/phrases you wish to search for</p>
           <div className='input-container'>
-            <TermInputBar/>
+            <TermInputBar isLight={isLight}/>
             <div className='button-container'>
             </div>
           </div>
