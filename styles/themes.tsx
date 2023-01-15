@@ -3,6 +3,9 @@ import {createTheme, styled} from '@mui/material/styles'
 export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
+    background: {
+      default: '#000',
+    },
     primary: {
       main: '#C523B4',
     },

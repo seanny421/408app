@@ -21,7 +21,7 @@ const Captions: NextPage = () => {
   //run once on store.urlList update
   useEffect(() => {
     //logging captions for dev
-    store.urlList.forEach(url => console.log(url.captions))
+    // store.urlList.forEach(url => console.log(url.captions))
   }, [store.urlList]);
 
 
