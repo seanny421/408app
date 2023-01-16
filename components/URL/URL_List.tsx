@@ -15,7 +15,8 @@ const Card = styled('div')(({ theme }) => ({
   padding: '1rem',
   marginBottom: '1rem',
   background: '#000',
-  color: '#fff'
+  color: '#fff',
+  border: `2px solid ${theme.palette.primary.main}`
 }));
 
 
@@ -34,9 +35,23 @@ export default function URL_List(){
 
   //runs every time store.urlList is changed 
   useEffect(() => {
-    console.log("urlList CHANGED");
     setLocalList(store.urlList);
   }, [store.urlList]);
+
+  //make sure that we aren't feeding null url into image src
+  //is this future proof?
+  function getImageURL(videoObj: VideoObject){
+    if(videoObj.videoInfo.snippet.thumbnails.maxres)
+      return videoObj.videoInfo.snippet.thumbnails.maxres.url;
+    else if(videoObj.videoInfo.snippet.thumbnails.medium)
+      return videoObj.videoInfo.snippet.thumbnails.medium.url;
+    else if(videoObj.videoInfo.snippet.thumbnails.standard)
+      return videoObj.videoInfo.snippet.thumbnails.standard.url;
+    else if(videoObj.videoInfo.snippet.thumbnails.default.url)
+      return videoObj.videoInfo.snippet.thumbnails.default.url;
+    else
+      return ""; //avoid returning null which causes errors
+  }
 
   return (
     <section id="url-list">
@@ -47,7 +62,7 @@ export default function URL_List(){
             <CancelIcon onClick={() => store.removeFromUrlList(videoObj)} sx={removeBtnStyle(store.isLight)}/>
             <div id="flex-container" style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
               <div style={{width: '50%'}}>
-                <Thumbnail imageURL={videoObj.videoInfo.snippet.thumbnails.maxres.url}/>
+                <Thumbnail imageURL={getImageURL(videoObj)}/>
               </div>
               <Paper style={{width: '50%', backgroundColor: 'rgba(39,39,39,255)', borderRadius: '20px', padding: '0.5rem', maxHeight: 480/2, minHeight: 480/2, overflow: 'auto', overflowX: 'hidden'}}>
                 <p style={{color: 'white'}}>{videoObj.videoInfo.snippet.description}</p>

@@ -103,3 +103,40 @@ a {
   border-radius:100px
 }
 
+
+/* 14/01 */
+.term-heading-container {
+  display: flex;
+  justify-content: space-between;
+  /* margin: 1rem; */
+}
+
+.url-list-card {
+  width: 80vw;
+  margin: 2rem;
+  margin-top: 4rem;
+}
+
+.link:hover {
+  cursor: pointer;
+}
+
+.link-text:hover {
+  text-decoration: underline;
+}
+
+.w-30 {
+  width: 30%;
+}
+
+@media only screen and (min-width: 1000px){
+  .url-list-card {
+    width: 60vw;
+    margin: 2rem;
+    margin-top: 4rem;
+  }
+
+}
+
+
+  

@@ -1,7 +1,7 @@
 export type VideoObject = Object & {
   videoInfo: VidInfoObject,
   url: string,
-  captions?: string[]
+  captions: string[]
 }
 type VidInfoObject = Object & {snippet: SnippetObject} 
 type SnippetObject = Object & {
@@ -10,5 +10,10 @@ type SnippetObject = Object & {
   title: string
 } 
 type ThumbnailObject = Object & {
-  maxres: {url: string}
+  default: {url: string},
+  medium: {url: string},
+  high: {url: string},
+  standard: {url:string}
+  maxres: {url: string},
+
 }

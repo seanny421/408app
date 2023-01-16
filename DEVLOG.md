@@ -1,6 +1,28 @@
 Most recent changes first
 ---------------------------------------------------------------------
 
+[15/01]
+
+- fixed no maxres thumbnail bug
+
+## TODO
+## [1] decouple url fetches from client to server 
+## [2] inform user of error if url is input incorrectly 
+## [3] style url list responsively 
+
+---------------------------------------------------------------------
+
+[14/01]
+
+- updated input bar themes
+- reworked how we stored/handled caption data
+- styled caption page
+
+    STEP ONE (minimum viable product) ALMOST COMPLETE
+      - just need to clean up some bugs
+
+---------------------------------------------------------------------
+
 [12/01]
 
 Thinking about how we are matching terms
@@ -18,16 +40,6 @@ How is our caption data structured:
 - implemented term matching
 - we now display all timestamps term occurs at to user
 <! phrases may be different? as phrases can carry over from one caption line to the next>
-
-
-## TODO
-## [1] work on matching phrases? see above comment on things to keep in mind 
-## [2] make sure if we don't have high quality thumbnail then we 
-##     substitute (can maybe make a catchall function that searches if something exists and if it does returns it if not we return something else within the object)
-##     function getBestThumbnailOption()
-## [3] decouple url fetches from client to server 
-## [4] inform user of error if url is input incorrectly 
-## [5] style url list responsively 
 ---------------------------------------------------------------------
 
 [07/01]
