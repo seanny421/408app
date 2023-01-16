@@ -1,5 +1,3 @@
-import useStore from "../../global/state";
-import { lightTheme, darkTheme } from "../styles/themes";
 import Link from "next/link";
 import { styled } from "@mui/system"
 
@@ -17,7 +15,6 @@ interface Props {
 }
 
 export default function TimestampCard(props:Props){
-  const store = useStore();
   return(
     <section>
       <Link href={props.url} className="link">

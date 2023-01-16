@@ -10,5 +10,10 @@ type SnippetObject = Object & {
   title: string
 } 
 type ThumbnailObject = Object & {
-  maxres: {url: string}
+  default: {url: string},
+  medium: {url: string},
+  high: {url: string},
+  standard: {url:string}
+  maxres: {url: string},
+
 }
