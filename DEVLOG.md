@@ -1,9 +1,21 @@
 Most recent changes first
 ---------------------------------------------------------------------
+[17/01]
 
+- added checking to url input with feedback msg to user 
+- styled feedback msg to user
+- added home button next to settingsmenu for better UX
+
+## TODO
+## [1] make each caption list item foldable 
+## [2] decouple url fetches from client to server 
+## [3] style url list responsively 
+
+---------------------------------------------------------------------
 [15/01]
 
 - fixed no maxres thumbnail bug
+- cleaned up captionRework code
 
 ## TODO
 ## [1] decouple url fetches from client to server 
@@ -16,10 +28,22 @@ Most recent changes first
 
 - updated input bar themes
 - reworked how we stored/handled caption data
+    caption data is stored as such:
+      - we have a matches dictionary that captures all data per term
+        i.e. matchDict[term], it is structured like so:
+        matchDict: {
+          [term:string]: {
+            [videoId: string]: {
+              timestamps: number[]
+            }
+          }
+        }
+      - so if we wanted to get the timestamps for the 2nd video for the term "hello":
+      const timeStampArr = matchDict["hello"][1].timestamps
 - styled caption page
 
-    STEP ONE (minimum viable product) ALMOST COMPLETE
-      - just need to clean up some bugs
+## STEP ONE (minimum viable product) ALMOST COMPLETE
+  - just need to clean up some bugs
 
 ---------------------------------------------------------------------
 
@@ -68,7 +92,6 @@ How is our caption data structured:
         from YoutubeDataAPI and display this in the videolist shown to the user
     user clicks next page to input words phrases to work on
     user can click next page to captions page where we can see each videos captions in the console
-
 
 ## TODO
 ## [1] implement testing (Jest / MochaJS) !IMPORTANT

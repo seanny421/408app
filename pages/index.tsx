@@ -8,6 +8,8 @@ import {darkTheme, lightTheme} from '../styles/themes'
 import SettingsMenu from '../components/SettingsMenu'
 import HomeInputBar from '../components/HomeInputBar'
 import URL_List from '../components/URL/URL_List'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Home: NextPage = () => {
   const store = useStore();
@@ -29,6 +31,7 @@ const Home: NextPage = () => {
         </Head>
 
         <main className={styles.main}>
+          <ToastContainer className="toast" theme={isLight ? "light" : "dark"}/>
           <SettingsMenu/>
           <h2 className={styles.title}>Welcome to 408 Project</h2>
           <p>Please enter a url to get started.</p>

@@ -1,7 +1,9 @@
 import { Box, Switch, Modal, FormControlLabel } from '@mui/material/';
 import { darkTheme, lightTheme } from "../styles/themes";
 import SettingsIcon from '@mui/icons-material/Settings';
+import HomeIcon from '@mui/icons-material/Home';
 import useStore  from '../global/state';
+import Link from 'next/link';
 
 const style = (isLight: boolean) => ({
   position: 'absolute' as 'absolute',
@@ -22,7 +24,10 @@ const SettingsMenu: React.FunctionComponent = () => {
 
   return(
     <section id='settingsmenu' className='settingsmenu'>
-      <SettingsIcon onClick={store.toggleSettings} style={{cursor: 'pointer', margin: '10px', opacity: store.shown ? 1.0 : 0.3}}/>
+      <div style={{display: 'flex', flexDirection: 'column'}}>
+        <Link href="/"><HomeIcon style={{cursor: 'pointer', margin: '10px'}}/></Link>
+        <SettingsIcon onClick={store.toggleSettings} style={{cursor: 'pointer', marginInline: '10px', opacity: store.shown ? 1.0 : 0.3}}/>
+      </div>
       <Modal onClose={handleClose} open={store.shown}>
         <Box sx={style(store.isLight)}>
           <FormControlLabel style={{marginLeft:'auto', marginRight:'auto'}} label='Dark mode' control={<Switch checked={!store.isLight} onChange={store.toggleTheme}/>}/>
