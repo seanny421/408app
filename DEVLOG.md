@@ -5,9 +5,11 @@ Most recent changes first
 - added checking to url input with feedback msg to user 
 - styled feedback msg to user
 - added home button next to settingsmenu for better UX
+- implemented foldable caption list items
+- styled scrollbar for timestamps list
 
 ## TODO
-## [1] make each caption list item foldable 
+## [1] make each caption list item foldable <!DONE
 ## [2] decouple url fetches from client to server 
 ## [3] style url list responsively 
 

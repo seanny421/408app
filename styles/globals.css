@@ -134,7 +134,6 @@ a {
   --toastify-color-error: #c20000;
   --toastify-color-success: #0c7d1f;
 }
-
 /** handle the notification color and the text color based on the theme **/
 .Toastify__toast-theme--dark {
   background: #000!important;
@@ -153,4 +152,6 @@ a {
 .Toastify__toast-theme--light {
   background: #fff!important;
 }
-
+::-webkit-scrollbar{
+  width: 10px
+}
