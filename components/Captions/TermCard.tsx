@@ -1,6 +1,9 @@
 import useStore from "../../global/state";
 import { styled } from "@mui/system"
 import TimestampRow from "./TimestampRow";
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import {useState} from "react";
 
 const Card = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -17,7 +20,11 @@ const TermHeadingContainer = styled('div')(({ theme }) => ({
   flex: 1,
   justifyContent: 'space-between',
   alignItems: 'center',
-  borderBottom: `2px solid ${theme.palette.primary.main}`
+  // borderBottom: `2px solid ${theme.palette.primary.main}`
+}));
+
+const BorderBottom = styled('div')(({ theme }) => ({
+  borderBottom: `2px solid ${theme.palette.primary.main}`,
 }));
 
 const MatchesCountHeading = styled('h3')(({ theme }) => ({
@@ -42,6 +49,7 @@ interface MatchDictionary {
 
 export default function TermCard(props:Props){
   const store = useStore();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   function calculateMatchCount(timestampslist:object):number{
     let total = 0;
@@ -51,16 +59,25 @@ export default function TermCard(props:Props){
     }
     return total;
   }
+
+  function handleArrowClick(){
+    setIsOpen(!isOpen)
+  }
   return(
       <section key={props.key}>
         <Card className="url-list-card" >
-          <div style={{margin: '1rem'}}>
+          <div style={{margin: `${isOpen ? '1rem' : ''} `}}>
             <TermHeadingContainer className="term-heading-container">
-              <h2>{props.term}</h2>
+              <div style={{display: 'flex', alignItems: 'center'}}>
+                <h2>{props.term}</h2>
+                {!isOpen && <ArrowRightIcon style={{fontSize: '2rem'}} onClick={handleArrowClick}/>}
+                {isOpen && <ArrowDropDownIcon style={{fontSize: '2rem'}} onClick={handleArrowClick}/>}
+              </div>
               <MatchesCountHeading>{calculateMatchCount(props.matchDict[props.term])} matches</MatchesCountHeading>
             </TermHeadingContainer>
+            {isOpen && <BorderBottom/>}
             {/*for each video in the list render: */}
-            {store.urlList.map(function(url, i){
+            {isOpen && store.urlList.map(function(url, i){
               //only render video rows we have caption matches for
               if(props.matchDict[props.term][i]?.timestamps){
                 return(

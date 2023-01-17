@@ -17,6 +17,20 @@ interface Props {
   url: VideoObject,
 }
 
+const PaperStyles = {
+    "::-webkit-scrollbar":{
+      backgroundColor: '#1f1e1f',
+    },
+    "::-webkit-scrollbar-track":{
+      backgroundColor: '#1f1e1f',
+    },
+    "::-webkit-scrollbar-thumb":{
+      backgroundColor: 'rgba(150, 153, 151, 0.1)',
+      borderRadius: 2,
+    }
+
+}
+
 export default function TimestampRow(props:Props){
 
   //generate a url that will autoplay vid at given time
@@ -35,12 +49,11 @@ export default function TimestampRow(props:Props){
           <h1>{props.url.videoInfo.snippet.title}</h1>
         </div>
         <div className="w-30">
-          <Paper className="" style={{maxHeight: 200, overflow: 'auto'}}>
+          <Paper sx={PaperStyles} className="custom-scrollbar" style={{maxHeight: 200, overflow: 'auto'}}>
             {props.timestamps && props.timestamps.map(function(timestamp:number, i:number){
               return(<TimestampCard key={i} timestamp={timestamp} url={getTimestampUrl(props.url.url, timestamp)}/>)
             })}
           </Paper>
-
         </div>
       </CaptionListRowContainer>
     </section>
