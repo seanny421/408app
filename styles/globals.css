@@ -1,3 +1,4 @@
+
 html,
 body {
   padding: 0;
@@ -13,16 +14,6 @@ a {
 
 * {
   box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  /* html { */
-  /*   color-scheme: dark; */
-  /* } */
-  /* body { */
-  /*   color: white; */
-  /*   background: black; */
-  /* } */
 }
 
 .settingsmenu {
@@ -135,8 +126,31 @@ a {
     margin: 2rem;
     margin-top: 4rem;
   }
-
 }
 
+:root{
+  --toastify-color-dark: #2f3!important;
+  --toastify-text-color-dark: #3ff;
+  --toastify-color-error: #c20000;
+  --toastify-color-success: #0c7d1f;
+}
 
-  
+/** handle the notification color and the text color based on the theme **/
+.Toastify__toast-theme--dark {
+  background: #000!important;
+}
+
+.Toastify__toast--error {
+  box-shadow: 0px 10px 15px -5px var(--toastify-color-error), 0px 5px 20px 0px rgba(238,228,233,0.2)!important;
+  border: 2px solid var(--toastify-color-error)!important;
+}
+
+.Toastify__toast--success {
+  box-shadow: 0px 10px 15px -5px var(--toastify-color-success), 0px 5px 20px 0px rgba(238,228,233,0.2)!important;
+  border: 2px solid var(--toastify-color-success)!important;
+}
+
+.Toastify__toast-theme--light {
+  background: #fff!important;
+}
+

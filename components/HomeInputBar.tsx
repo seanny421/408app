@@ -3,6 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import useStore from "../global/state";
 import { lightTheme } from '../styles/themes'
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface Props { 
   isLight: boolean
@@ -49,8 +50,15 @@ export default function HomeInputBar(props:Props){
     const url = 'https://www.googleapis.com/youtube/v3/videos?id=' + vidId + '&key=' + process.env.NEXT_PUBLIC_API_KEY + '&part=snippet';  
     const res = await fetch(url)
     .then(res => res.json())
-    .then(data => store.addToUrlList({videoInfo: data.items[0], url: urlInput, captions: captions}))
-    .catch(err => console.log(err));
+    .then((data) => {
+      if(data.items.length > 0){
+        store.addToUrlList({videoInfo: data.items[0], url: urlInput, captions: captions})
+        toast.success('Item added', {autoClose: 3000})
+      }
+      else
+        toast.error('Please make sure you enter a valid url', {autoClose: 3000})
+    })
+    .catch(err => toast('something went wrong ' + err, {type: 'error', autoClose: 5000}));
 
   }
 
