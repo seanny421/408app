@@ -3,6 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import useStore from "../global/state";
 import { lightTheme } from '../styles/themes'
 import { useEffect, useState } from "react";
+import { FormEvent } from "react";
 
 interface Props {
   isLight: boolean
@@ -12,7 +13,9 @@ export default function TermInputBar(props:Props){
   const store = useStore();
   const [termInput, setTermInput] = useState<string>("");
 
-  function addToTermsList(){
+  //optional parameter if user presses "enter" to submit form
+  function addToTermsList(e?:FormEvent){
+    e?.preventDefault()//prevent page reload
     store.addToTermsList(termInput);
     //report any errors to user
 
@@ -27,7 +30,7 @@ export default function TermInputBar(props:Props){
 
 
   return (
-      <div className='input-bar-container'>
+      <form onSubmit={(e) => addToTermsList(e)} className='input-bar-container'>
         <Input 
           onChange={(e) => setTermInput(e.target.value)}
           value={termInput}
@@ -40,7 +43,7 @@ export default function TermInputBar(props:Props){
             </InputAdornment>
             }  
           className='text-input text-input-home'/>
-      </div>
+      </form>
   )
 
 }

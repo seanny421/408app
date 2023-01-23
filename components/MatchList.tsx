@@ -62,6 +62,7 @@ export default function MatchList(){
 
   return (
     <section id="url-list">
+      {(Object.keys(matchDict).length < 1) && <h1>Loading</h1>}
       {Object.keys(matchDict).map(function(term, i){
         return(
           <div key={i}>

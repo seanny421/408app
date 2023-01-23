@@ -28,7 +28,7 @@ const useStore = create<Store>()(
       toggleSettings: () => set((state) => ({shown: !state.shown})),
 
       urlList: [],
-      addToUrlList: (item:VideoObject) => set((state) => ({urlList: [...state.urlList, item]})),
+      addToUrlList: (item:VideoObject) => set((state) => ({urlList: [item, ...state.urlList]})),
       removeFromUrlList: (item:VideoObject) => set((state) => ({urlList: state.urlList.filter(url => url != item)})),
       addCaptionToObject: (item: VideoObject, captionlist: string[]) => {
         const newItem = item;
