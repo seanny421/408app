@@ -56,12 +56,6 @@ const PaperStyles = {
 }
 
 export default function TimestampRow(props:Props){
-  // const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    console.log(window.innerWidth < 800);
-  }, [])
-
-
   //generate a url that will autoplay vid at given time
   function getTimestampUrl(url:string, time:number){
     //typical url is https://youtube.com/watch?v=VIDEOID&ab_channel=CHANNELNAME 
