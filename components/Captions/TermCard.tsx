@@ -70,8 +70,8 @@ export default function TermCard(props:Props){
             <TermHeadingContainer className="term-heading-container">
               <div style={{display: 'flex', alignItems: 'center'}}>
                 <h2>{props.term}</h2>
-                {!isOpen && <ArrowRightIcon style={{fontSize: '2rem'}} onClick={handleArrowClick}/>}
-                {isOpen && <ArrowDropDownIcon style={{fontSize: '2rem'}} onClick={handleArrowClick}/>}
+                {!isOpen && <ArrowRightIcon style={{fontSize: '2.5rem'}} className="hover-cursor" onClick={handleArrowClick}/>}
+                {isOpen && <ArrowDropDownIcon style={{fontSize: '2.5rem'}} className="hover-cursor" onClick={handleArrowClick}/>}
               </div>
               <MatchesCountHeading>{calculateMatchCount(props.matchDict[props.term])} matches</MatchesCountHeading>
             </TermHeadingContainer>
@@ -80,8 +80,12 @@ export default function TermCard(props:Props){
             {isOpen && store.urlList.map(function(url, i){
               //only render video rows we have caption matches for
               if(props.matchDict[props.term][i]?.timestamps){
+                //check if we are on the last item in the list or if it's only item for list (only used for border bottom)
+                const isLastItem:boolean = 
+                  Object.values(props.matchDict[props.term]).length == 1
+                  || i === Object.values(props.matchDict[props.term]).length
                 return(
-                  <TimestampRow key={i} url={url} timestamps={props.matchDict[props.term][i]?.timestamps}/>
+                  <TimestampRow lastItem={isLastItem} key={i} url={url} timestamps={props.matchDict[props.term][i]?.timestamps}/>
                 );
               }
             })}

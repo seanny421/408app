@@ -1,5 +1,24 @@
 Most recent changes first
 ---------------------------------------------------------------------
+[23/01]
+
+- added formatTimestamp function to display timestamps in minutes/seconds 
+- made captions page list a bit more responsive
+
+## TODO
+## [1] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)
+## [2] decouple url fetches from client to server 
+## [3] style url list responsively 
+---------------------------------------------------------------------
+[18/01]
+
+- added passing of isLastItem prop to TimestampRow for conditional borderBottom render
+
+## TODO
+## [1] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)
+## [2] decouple url fetches from client to server 
+## [3] style url list responsively 
+---------------------------------------------------------------------
 [17/01]
 
 - added checking to url input with feedback msg to user 
@@ -7,11 +26,15 @@ Most recent changes first
 - added home button next to settingsmenu for better UX
 - implemented foldable caption list items
 - styled scrollbar for timestamps list
+- ammended store to update urlList with most recent at [0] in array
+- made timestamp link open in new tab
+- updated styling for termsinput page
 
 ## TODO
 ## [1] make each caption list item foldable <!DONE
-## [2] decouple url fetches from client to server 
-## [3] style url list responsively 
+## [2] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)
+## [3] decouple url fetches from client to server 
+## [4] style url list responsively 
 
 ---------------------------------------------------------------------
 [15/01]

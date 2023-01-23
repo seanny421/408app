@@ -8,12 +8,19 @@ import { Button } from "@mui/material";
 const Card = styled('div')(({ theme }) => ({
   position: 'relative',
   boxShadow: `0px 10px 17px -10px ${theme.palette.primary.main},0px 5px 20px 0px rgba(238,228,233,0.2)`,
+  border: `2px solid ${theme.palette.primary.main}`,
   borderRadius: '50px',
-  padding: '1rem',
+  paddingInline: '1rem',
   marginBottom: '1rem',
   marginRight: '1.5rem',
-  background: '#000',
-  color: '#fff',
+  background: `${theme == darkTheme ? '#000' : '#fff'}`,
+  color: `${theme == darkTheme ? '#fff' : '#000'}`,
+  ":hover": {
+    //on hover flip background theme
+    background: `${theme == darkTheme ? '#fff': '#000'}`,
+    color: `${theme == darkTheme ? '#000': '#fff'}`,
+    cursor: 'pointer'
+  },
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center'
@@ -46,7 +53,7 @@ export default function TermList(){
           return(
             <Card className="" key={i}>
               <CancelIcon data-testid={`remove-btn-`+i} onClick={() => store.removeFromTermsList(term)} sx={removeBtnStyle(store.isLight)}/>
-              <h3 className="url-link">{term}</h3>
+              <h3 className="">{term}</h3>
             </Card>
           );
         })}

@@ -1,4 +1,4 @@
-
+/* WE SHOULD BE STYLING FOR MOBILE FIRST AND USE MEDIA QUERIES FOR LARGER SCREENS*/
 html,
 body {
   padding: 0;
@@ -88,7 +88,12 @@ a {
 
 .image-wrapper {
   overflow: hidden;
+  position: relative;
+  height: 200;
+  border-radius: 10px;
+  width: 400;
 }
+/* position: 'relative', height: 200, borderRadius: '10px', width:400, overflow: 'hidden', marginRight: '2rem' */
 
 .primary-btn{
   border-radius:100px
@@ -120,11 +125,24 @@ a {
   width: 30%;
 }
 
+.hover-cursor:hover{
+  cursor: pointer;
+}
+
 @media only screen and (min-width: 1000px){
   .url-list-card {
     width: 60vw;
     margin: 2rem;
     margin-top: 4rem;
+  }
+
+  .image-wrapper {
+    overflow: hidden;
+    position: relative;
+    height: 200;
+    border-radius: 10px;
+    width: 400;
+    margin-right: 2rem;
   }
 }
 
