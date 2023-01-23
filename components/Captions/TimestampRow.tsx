@@ -4,7 +4,6 @@ import { styled } from "@mui/system"
 import TimestampCard from "./TimestampCard";
 import { Paper } from "@mui/material";
 import { lightTheme } from "../../styles/themes";
-import { useState, useEffect } from "react";
 
 interface RootProps {
   lastItem?: boolean;
@@ -23,14 +22,14 @@ const CaptionListRowContainer = styled('div', {shouldForwardProp:(prop) => prop 
 }));
 
 const PaperContainer = styled('div')(({ theme }) => ({
-  width: 400, 
+  width: window.innerWidth > 800 ? 200 : 400, 
   padding: '0.1rem', 
   borderRadius: 10, 
   border: theme == lightTheme ? `2px solid ${theme.palette.primary.main}`: '',
   "*::-webkit-scrollbar-thumb":{
     backgroundColor: `${theme == lightTheme ? 'rgba(150, 153, 151, 1)': 'rgba(150, 153, 151, 0.1)'}`,
     borderRadius: 100,
-  }
+  },
 }));
 
 interface Props {
@@ -67,7 +66,7 @@ export default function TimestampRow(props:Props){
         <div className="image-wrapper" style={{width: 400, height: 200}}>
           <Image width={300} height={200} layout="fill" objectFit="cover" src={props.url.videoInfo.snippet.thumbnails.maxres.url} alt="some pic"/>
         </div>
-        <PaperContainer className="w-3">
+        <PaperContainer className="w-3 some-test">
           <Paper className="custom-scrollbar" style={{maxHeight: 200, overflow: 'auto'}}>
             {props.timestamps && props.timestamps.map(function(timestamp:number, i:number){
               return(<TimestampCard key={i} timestamp={timestamp} url={getTimestampUrl(props.url.url, timestamp)}/>)

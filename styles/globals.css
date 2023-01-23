@@ -129,6 +129,10 @@ a {
   cursor: pointer;
 }
 
+.some-test {
+  width: 1px,
+}
+
 @media only screen and (min-width: 1000px){
   .url-list-card {
     width: 60vw;
@@ -143,6 +147,14 @@ a {
     border-radius: 10px;
     width: 400;
     margin-right: 2rem;
+  }
+}
+
+@media only screen and (min-width: 1200px){
+  .url-list-card {
+    width: 40vw;
+    margin: 2rem;
+    margin-top: 4rem;
   }
 }
 
