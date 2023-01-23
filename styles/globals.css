@@ -129,10 +129,6 @@ a {
   cursor: pointer;
 }
 
-.some-test {
-  width: 1px,
-}
-
 @media only screen and (min-width: 1000px){
   .url-list-card {
     width: 60vw;

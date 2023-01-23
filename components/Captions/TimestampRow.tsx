@@ -66,7 +66,7 @@ export default function TimestampRow(props:Props){
         <div className="image-wrapper" style={{width: 400, height: 200}}>
           <Image width={300} height={200} layout="fill" objectFit="cover" src={props.url.videoInfo.snippet.thumbnails.maxres.url} alt="some pic"/>
         </div>
-        <PaperContainer className="w-3 some-test">
+        <PaperContainer className="w-3">
           <Paper className="custom-scrollbar" style={{maxHeight: 200, overflow: 'auto'}}>
             {props.timestamps && props.timestamps.map(function(timestamp:number, i:number){
               return(<TimestampCard key={i} timestamp={timestamp} url={getTimestampUrl(props.url.url, timestamp)}/>)
