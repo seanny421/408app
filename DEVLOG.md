@@ -1,5 +1,19 @@
 Most recent changes first
 ---------------------------------------------------------------------
+[30/01]
+
+- successfully tested way to cut videos  
+- started front end on editor page
+
+## TODO
+## [1] find way to implement video downloading
+        (ideally user doesn't have to download to their machine
+        but not sure if this is realistically achievable)
+## [2] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)
+## [3] decouple url fetches from client to server 
+## [4] style url list responsively 
+
+---------------------------------------------------------------------
 [23/01]
 
 - added formatTimestamp function to display timestamps in minutes/seconds 

@@ -17,6 +17,16 @@ type Store = {
   termsList: string[];
   addToTermsList: (item:string) => void;
   removeFromTermsList: (item: string) => void;
+
+  //editor
+  // the state containing the currentTimeStamp
+  currentTimeStamp: string;
+  setCurrentTimeStamp: (timestamp: string) => void; 
+  currentFile: File | null;
+  setCurrentFile: (file:File) => void;
+  //mouseEventTrackers
+  lastMouseEvent: string;
+  setLastMouseEvent: (event:string) => void;
 }
 
 const useStore = create<Store>()(
@@ -42,7 +52,20 @@ const useStore = create<Store>()(
       termsList: [],
       addToTermsList: (item:string) => set((state) => ({termsList: [...state.termsList, item]})),
       removeFromTermsList: (item:string) => set((state) => ({termsList: state.termsList.filter(term => term != item)})),
+
+      //editor
+      currentTimeStamp: "00:00:00",
+      setCurrentTimeStamp: (timestamp:string) => set((state) => ({currentTimeStamp: timestamp})),
+      currentFile: null,
+      setCurrentFile: (file:File) => set((state) => ({currentFile: file})),
+
+      //mouseEventTrackers
+      lastMouseEvent: "",
+      setLastMouseEvent: (event:string) => set((state) => ({lastMouseEvent: event})),
+
+
     }), {name: 'boolean-storage'})
+
   )
 )
 

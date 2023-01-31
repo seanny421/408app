@@ -1,3 +1,4 @@
+import { FFmpeg } from "@ffmpeg/ffmpeg"
 export type VideoObject = Object & {
   videoInfo: VidInfoObject,
   url: string,
@@ -16,4 +17,8 @@ type ThumbnailObject = Object & {
   standard: {url:string}
   maxres: {url: string},
 
+}
+
+export interface EditorProps {
+  ffmpeg: FFmpeg
 }
