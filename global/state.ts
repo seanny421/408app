@@ -63,7 +63,6 @@ const useStore = create<Store>()(
       lastMouseEvent: "",
       setLastMouseEvent: (event:string) => set((state) => ({lastMouseEvent: event})),
 
-
     }), {name: 'boolean-storage'})
 
   )

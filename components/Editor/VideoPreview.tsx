@@ -1,6 +1,5 @@
 import { EditorComponentProps } from "../../global/types"
 import { useEffect, useState } from "react"
-import { fetchFile } from "@ffmpeg/ffmpeg"
 import useStore from "../../global/state"
 
 export default function VideoPreview(props: EditorComponentProps){
@@ -21,7 +20,6 @@ export default function VideoPreview(props: EditorComponentProps){
       const tempvideo = props.ffmpeg.FS('readFile', 'mainpreview.mp4')
       const url = URL.createObjectURL(new Blob([tempvideo.buffer], {type: 'video/mkv'}))
       setVideo(url)
-
     } catch(e) {
 
       // const tempvideo = props.ffmpeg.FS('readFile', 'mainpreview.mp4')

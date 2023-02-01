@@ -11,7 +11,7 @@ const ffmpeg = createFFmpeg({
 
 export default function VideoEditor(){
   const load = async() => {
-    ffmpeg.load()
+    await ffmpeg.load()
   }
 
   //run once on store.urlList update
