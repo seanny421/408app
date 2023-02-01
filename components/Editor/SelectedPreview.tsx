@@ -1,5 +1,5 @@
-import { EditorProps } from "../../global/types"
+import { EditorComponentProps } from "../../global/types"
 
-export default function SelectedPreview(props: EditorProps){
+export default function SelectedPreview(props: EditorComponentProps){
   return(<h1>SelectedPreview</h1>)
 }

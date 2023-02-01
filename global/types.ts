@@ -19,6 +19,6 @@ type ThumbnailObject = Object & {
 
 }
 
-export interface EditorProps {
+export interface EditorComponentProps {
   ffmpeg: FFmpeg
 }

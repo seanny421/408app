@@ -1,5 +1,32 @@
 Most recent changes first
 ---------------------------------------------------------------------
+[01/02]
+
+## TODO
+## [1] catch up with testing
+## [1] find way to implement video downloading
+        (ideally user doesn't have to download to their machine
+        but not sure if this is realistically achievable)
+## [2] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)
+## [3] decouple url fetches from client to server 
+## [4] style url list responsively 
+
+---------------------------------------------------------------------
+[31/01]
+
+- figured out way to concatenate 2 vids together (IMPORTANT for vid editing)
+- played around with timeline ui (added mouse events to handle dragging)
+
+## TODO
+## change EditorProps to EditorComponentProps
+## [1] find way to implement video downloading
+        (ideally user doesn't have to download to their machine
+        but not sure if this is realistically achievable)
+## [2] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)
+## [3] decouple url fetches from client to server 
+## [4] style url list responsively 
+
+---------------------------------------------------------------------
 [30/01]
 
 - successfully tested way to cut videos  

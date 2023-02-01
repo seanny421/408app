@@ -7,11 +7,6 @@ import { ThemeProvider, CssBaseline, Button } from '@mui/material'
 import {darkTheme, lightTheme} from '../styles/themes'
 import SettingsMenu from '../components/SettingsMenu'
 import VideoEditor from '../components/Editor/VideoEditor'
-import { createFFmpeg } from '@ffmpeg/ffmpeg'
-const ffmpeg = createFFmpeg({
-  log: true,
-  corePath: 'https://unpkg.com/@ffmpeg/core@latest/dist/ffmpeg-core.js'
-})
 
 const Editor: NextPage = () => {
   const store = useStore();
@@ -21,18 +16,6 @@ const Editor: NextPage = () => {
   useEffect(() => {
     setIsLight(store.isLight);
   }, [store.isLight]);
-
-
-  const load = async() => {
-    ffmpeg.load()
-  }
-
-  //run once on store.urlList update
-  useEffect(() => {
-    //load ffmpeg
-    load()
-  }, []);
-
 
   return (
     <ThemeProvider theme={isLight ? lightTheme : darkTheme}>

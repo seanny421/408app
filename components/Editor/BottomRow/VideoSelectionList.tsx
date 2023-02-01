@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import SelectionListItem from "./SelectionListItem";
-import { EditorProps } from "../../../global/types";
+import { EditorComponentProps } from "../../../global/types";
 
 
-export default function VideoSelectionList(props:EditorProps){
+export default function VideoSelectionList(props:EditorComponentProps){
   //temp list REMOVE FOR PRODUCTION
   const [videoList, setVideoList] = useState<File[]>([]);
 
