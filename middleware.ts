@@ -16,5 +16,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/wasmtest', '/videocuttest', '/editor'],
+  matcher: ['/wasmtest', '/videocuttest', '/editor', '/videodownloadtest'],
 }

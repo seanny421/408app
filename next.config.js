@@ -5,6 +5,9 @@ const nextConfig = {
   images: {
     domains: ['i.ytimg.com'],
     formats: ['image/avif', 'image/webp']
+  },
+  api: {
+    responseLimit: false,
   }
 }
 

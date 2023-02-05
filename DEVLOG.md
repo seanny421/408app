@@ -1,5 +1,32 @@
 Most recent changes first
 ---------------------------------------------------------------------
+[05/02]
+
+
+## TODO
+## [1] catch up with testing
+## [1] find way to implement video downloading
+        (ideally user doesn't have to download to their machine
+        but not sure if this is realistically achievable)
+## [2] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)
+## [3] decouple url fetches from client to server 
+## [4] style url list responsively 
+---------------------------------------------------------------------
+[03/02]
+
+- got a version of videodownloading to work,
+  might not be the best way to deal with this though
+
+## TODO
+## [1] catch up with testing
+## [1] find way to implement video downloading
+        (ideally user doesn't have to download to their machine
+        but not sure if this is realistically achievable)
+## [2] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)
+## [3] decouple url fetches from client to server 
+## [4] style url list responsively 
+
+---------------------------------------------------------------------
 [01/02]
 
 ## TODO
