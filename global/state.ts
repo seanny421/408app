@@ -1,7 +1,7 @@
 import {Url} from 'url';
 import create from 'zustand'
 import {devtools, persist} from 'zustand/middleware';
-import { VideoObject } from './types';
+import { DownloadQueueItem, VideoObject } from './types';
 
 type Store = {
   isLight: boolean;
@@ -17,6 +17,11 @@ type Store = {
   termsList: string[];
   addToTermsList: (item:string) => void;
   removeFromTermsList: (item: string) => void;
+  
+  //downloadQueue
+  downloadQueue: DownloadQueueItem[],
+  addToDownloadQueue: (item:DownloadQueueItem) => void; //should this be boolean?
+  removeFromDownloadQueue: (item:DownloadQueueItem) => void;
 }
 
 const useStore = create<Store>()(
@@ -42,6 +47,11 @@ const useStore = create<Store>()(
       termsList: [],
       addToTermsList: (item:string) => set((state) => ({termsList: [...state.termsList, item]})),
       removeFromTermsList: (item:string) => set((state) => ({termsList: state.termsList.filter(term => term != item)})),
+
+      //downloadQueue
+      downloadQueue: [],
+      addToDownloadQueue: (item:DownloadQueueItem) => set((state) => ({downloadQueue: [...state.downloadQueue, item]})),
+      removeFromDownloadQueue: (item:DownloadQueueItem) => set((state) => ({downloadQueue: state.downloadQueue.filter(queueItem => JSON.stringify(queueItem) != JSON.stringify(item))})),
     }), {name: 'boolean-storage'})
   )
 )
