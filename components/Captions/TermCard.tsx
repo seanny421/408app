@@ -4,6 +4,7 @@ import TimestampRow from "./TimestampRow";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {useState} from "react";
+import {TimeStampObject} from "../../global/types";
 
 const Card = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -39,10 +40,18 @@ interface Props {
   matchDict: MatchDictionary,
 }
 
+// interface MatchDictionary {
+//   [term: string]: {
+//     [videoId: number]: {
+//       timestamps: number[]
+//     }
+//   }
+// }
+
 interface MatchDictionary {
   [term: string]: {
     [videoId: number]: {
-      timestamps: number[]
+      timestamps: TimeStampObject[]
     }
   }
 }

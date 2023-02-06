@@ -22,3 +22,8 @@ type ThumbnailObject = Object & {
 export interface EditorComponentProps {
   ffmpeg: FFmpeg
 }
+
+export type TimeStampObject = {
+  start:number,
+  duration: number,
+}
