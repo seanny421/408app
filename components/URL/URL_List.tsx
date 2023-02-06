@@ -71,7 +71,7 @@ export default function URL_List(){
           </Card>
         );
       })}
-      <NextPageBtn/>
+      <NextPageBtn url="/termsinput"/>
     </section>
   );
 }

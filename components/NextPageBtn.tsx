@@ -2,7 +2,11 @@ import { Button } from "@mui/material"
 import useStore from "../global/state"
 import { useState, useEffect } from "react"
 
-export default function NextPageBtn(){
+interface Props {
+  url:string
+}
+
+export default function NextPageBtn(props:Props){
   const store = useStore()
   const [display, setDisplay] = useState('none');
 
@@ -17,7 +21,7 @@ export default function NextPageBtn(){
 
     return(
       <div style={{display: `${display}`, justifyContent: 'flex-end'}}>
-        <Button href="/termsinput" variant="contained" className="primary-btn">Next</Button>
+        <Button href={props.url} variant="contained" className="primary-btn">Next</Button>
       </div>
     )
 }

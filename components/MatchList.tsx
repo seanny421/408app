@@ -3,6 +3,7 @@ import useStore from "../global/state"
 import { lightTheme, darkTheme } from "../styles/themes";
 import TermCard from "./Captions/TermCard";
 import { MatchDictionary, TimestampObject } from "../global/types";
+import NextPageBtn from "./NextPageBtn";
 
 const removeBtnStyle = (isLight: boolean) => ({
   fontSize: 25, 
@@ -63,6 +64,7 @@ export default function MatchList(){
           </div>
         )
         })}
+      {(Object.keys(matchDict).length > 0) && <NextPageBtn url="/download"/>}
     </section>
   );
 }

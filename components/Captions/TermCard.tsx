@@ -5,6 +5,7 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {useState} from "react";
 import { MatchDictionary } from "../../global/types";
+import AddToQueueRow from "./AddToQueueRow";
 
 const Card = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -33,6 +34,16 @@ const MatchesCountHeading = styled('h3')(({ theme }) => ({
   paddingInline: '2rem',
   borderRadius: 100,
 }));
+
+const RowContainer = styled('div', {shouldForwardProp:(prop) => prop !== 'lastItem' && prop !== 'isMobile'})<RootProps>(({ theme, lastItem, isMobile }) => ({
+  borderBottom: !lastItem ? `2px solid ${theme.palette.primary.main}` : 'none',
+  paddingBottom: !lastItem ? '1.5rem' : '',
+}));
+
+interface RootProps {
+  lastItem?: boolean;
+  isMobile?: boolean;
+}
 
 interface Props {
   key: number,
@@ -78,7 +89,11 @@ export default function TermCard(props:Props){
                   Object.values(props.matchDict[props.term]).length == 1
                   || i === Object.values(props.matchDict[props.term]).length
                 return(
-                  <TimestampRow lastItem={isLastItem} key={i} vidObject={vidObject} timestamps={props.matchDict[props.term][i]?.timestamps}/>
+                  <RowContainer key={i}>
+                    <TimestampRow lastItem={isLastItem} key={i} vidObject={vidObject} timestamps={props.matchDict[props.term][i]?.timestamps}/>
+                    <AddToQueueRow url={vidObject.url} timestampData={props.matchDict[props.term][i]?.timestamps}/>
+
+                  </RowContainer>
                 );
               }
             })}
