@@ -15,5 +15,23 @@ type ThumbnailObject = Object & {
   high: {url: string},
   standard: {url:string}
   maxres: {url: string},
+}
 
+export type TimestampObject = {
+  text:string,
+  start:number,
+  duration:number,
+}
+
+export type DownloadQueueItem = {
+  url:string,
+  timestampData: TimestampObject[]
+}
+
+export type MatchDictionary = {
+  [term: string]: {
+    [videoId: string]: {
+      timestamps: TimestampObject[]
+    }
+  }
 }

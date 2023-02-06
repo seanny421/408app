@@ -1,4 +1,4 @@
-import { VideoObject } from "../../global/types"
+import { TimestampObject, VideoObject } from "../../global/types"
 import Image from "next/image"
 import { styled } from "@mui/system"
 import TimestampCard from "./TimestampCard";
@@ -33,8 +33,8 @@ const PaperContainer = styled('div')(({ theme }) => ({
 }));
 
 interface Props {
-  timestamps: number[],
-  url: VideoObject,
+  timestamps: TimestampObject[],
+  vidObject: VideoObject,
   lastItem: boolean,
 }
 
@@ -64,12 +64,12 @@ export default function TimestampRow(props:Props){
   return(
       <CaptionListRowContainer lastItem={props.lastItem} isMobile={window.innerWidth < 800}>
         <div className="image-wrapper" style={{width: 400, height: 200}}>
-          <Image width={300} height={200} layout="fill" objectFit="cover" src={props.url.videoInfo.snippet.thumbnails.maxres.url} alt="some pic"/>
+          <Image width={300} height={200} layout="fill" objectFit="cover" src={props.vidObject.videoInfo.snippet.thumbnails.maxres.url} alt="some pic"/>
         </div>
         <PaperContainer className="w-3">
           <Paper className="custom-scrollbar" style={{maxHeight: 200, overflow: 'auto'}}>
-            {props.timestamps && props.timestamps.map(function(timestamp:number, i:number){
-              return(<TimestampCard key={i} timestamp={timestamp} url={getTimestampUrl(props.url.url, timestamp)}/>)
+            {props.timestamps && props.timestamps.map(function(timestamp:TimestampObject, i:number){
+              return(<TimestampCard key={i} timestamp={timestamp.start} url={getTimestampUrl(props.vidObject.url, timestamp.start)}/>)
             })}
           </Paper>
         </PaperContainer>

@@ -4,6 +4,7 @@ import TimestampRow from "./TimestampRow";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {useState} from "react";
+import { MatchDictionary } from "../../global/types";
 
 const Card = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -39,14 +40,6 @@ interface Props {
   matchDict: MatchDictionary,
 }
 
-interface MatchDictionary {
-  [term: string]: {
-    [videoId: number]: {
-      timestamps: number[]
-    }
-  }
-}
-
 export default function TermCard(props:Props){
   const store = useStore();
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -77,7 +70,7 @@ export default function TermCard(props:Props){
             </TermHeadingContainer>
             {isOpen && <BorderBottom/>}
             {/*for each video in the list render: */}
-            {isOpen && store.urlList.map(function(url, i){
+            {isOpen && store.urlList.map(function(vidObject, i){
               //only render video rows we have caption matches for
               if(props.matchDict[props.term][i]?.timestamps){
                 //check if we are on the last item in the list or if it's only item for list (only used for border bottom)
@@ -85,7 +78,7 @@ export default function TermCard(props:Props){
                   Object.values(props.matchDict[props.term]).length == 1
                   || i === Object.values(props.matchDict[props.term]).length
                 return(
-                  <TimestampRow lastItem={isLastItem} key={i} url={url} timestamps={props.matchDict[props.term][i]?.timestamps}/>
+                  <TimestampRow lastItem={isLastItem} key={i} vidObject={vidObject} timestamps={props.matchDict[props.term][i]?.timestamps}/>
                 );
               }
             })}
