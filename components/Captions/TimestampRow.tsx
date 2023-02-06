@@ -17,8 +17,8 @@ const CaptionListRowContainer = styled('div', {shouldForwardProp:(prop) => prop 
   alignItems: 'center',
   position: 'relative',
   marginTop: '1rem',
-  borderBottom: !lastItem ? `2px solid ${theme.palette.primary.main}` : 'none',
-  paddingBottom: !lastItem ? '1.5rem' : '',
+  // borderBottom: !lastItem ? `2px solid ${theme.palette.primary.main}` : 'none',
+  // paddingBottom: !lastItem ? '1.5rem' : '',
 }));
 
 const PaperContainer = styled('div')(({ theme }) => ({

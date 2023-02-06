@@ -24,6 +24,12 @@ export interface EditorComponentProps {
 }
 
 export type TimeStampObject = {
+  text: string,
   start:number,
   duration: number,
+}
+
+export type DownloadQueueItem = {
+  url: string,
+  timestampData: TimeStampObject[],
 }

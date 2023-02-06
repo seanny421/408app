@@ -1,7 +1,7 @@
 import {Url} from 'url';
 import create from 'zustand'
 import {devtools, persist} from 'zustand/middleware';
-import { VideoObject } from './types';
+import { DownloadQueueItem, VideoObject } from './types';
 
 type Store = {
   isLight: boolean;
@@ -27,6 +27,12 @@ type Store = {
   //mouseEventTrackers
   lastMouseEvent: string;
   setLastMouseEvent: (event:string) => void;
+
+  //download queue
+  downloadQueue:DownloadQueueItem[],
+  addToDownloadQueue: (item:DownloadQueueItem) => void; //should this be boolean?
+  removeFromDownloadQueue: (item:DownloadQueueItem) => void;
+
 }
 
 const useStore = create<Store>()(
@@ -62,6 +68,11 @@ const useStore = create<Store>()(
       //mouseEventTrackers
       lastMouseEvent: "",
       setLastMouseEvent: (event:string) => set((state) => ({lastMouseEvent: event})),
+
+      //download queue
+      downloadQueue: [],
+      addToDownloadQueue: (item:DownloadQueueItem) => set((state) => ({downloadQueue: [...state.downloadQueue, item]})),
+      removeFromDownloadQueue: (item:DownloadQueueItem) => set((state) => ({downloadQueue: state.downloadQueue.filter(queueItem => JSON.stringify(queueItem) != JSON.stringify(item))})),
 
     }), {name: 'boolean-storage'})
 
