@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import useStore from "../global/state"
 import { lightTheme, darkTheme } from "../styles/themes";
 import TermCard from "./Captions/TermCard";
+import { MatchDictionary, TimestampObject } from "../global/types";
 
 const removeBtnStyle = (isLight: boolean) => ({
   fontSize: 25, 
@@ -11,14 +12,6 @@ const removeBtnStyle = (isLight: boolean) => ({
   color: (isLight) ? `${lightTheme.palette.primary.main}` : `${darkTheme.palette.primary.main}`,
   cursor: 'pointer',
 });
-
-interface MatchDictionary {
-  [term: string]: {
-    [videoId: string]: {
-      timestamps: number[]
-    }
-  }
-}
 
 export default function MatchList(){
   const store = useStore(); 
@@ -32,18 +25,18 @@ export default function MatchList(){
   }, [])
   
   //takes 2 params: timestamp, term
-  function addToMatchDict(timestamp:number, term:string, videoPos:number){
+  function addToMatchDict(timestampData:TimestampObject, term:string, videoPos:number){
     //if dict[term] is empty then we initialise it
     if(matchDict[term] == null){
-      matchDict[term] = {[videoPos]: {timestamps: [timestamp]}}
+      matchDict[term] = {[videoPos]: {timestamps: [timestampData]}}
     }
     //if dict[term][videoPos] is empty then initialise it
     else if(matchDict[term][videoPos] == null){
-      matchDict[term][videoPos] = {timestamps: [timestamp]}
+      matchDict[term][videoPos] = {timestamps: [timestampData]}
     }
     //otherwise add our timestamps arr to dictionary
-    else if(!matchDict[term][videoPos].timestamps.includes(timestamp)){
-      matchDict[term][videoPos].timestamps.push(timestamp);
+    else if(!matchDict[term][videoPos].timestamps.includes(timestampData)){
+      matchDict[term][videoPos].timestamps.push(timestampData);
     }
   }
 
@@ -54,7 +47,7 @@ export default function MatchList(){
         for(let i = 0; i < video.captions?.length; i++){
           //if current term is in the video captions then add to matches dictionary
           if(video.captions[i].text.includes(terms[j])){
-            addToMatchDict(video.captions[i].start, terms[j], videoPos)
+            addToMatchDict(video.captions[i], terms[j], videoPos)
           }
         }
       }
