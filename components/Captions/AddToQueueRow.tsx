@@ -53,13 +53,24 @@ export default function AddToQueueRow(props:Props){
     const queueItem = createQueueItem()
     store.removeFromDownloadQueue(queueItem)
   }
+  
+  //helper function for dowloadQueueContains
+  //returns true if param 2 is in param 1
+  function xContainsY(inputX:TimestampObject[], inputY:TimestampObject[]){
+    //stringify inputs
+    let x = JSON.stringify(inputX)
+    let y = JSON.stringify(inputY)
+    let z = y.replace('[', '').replace(']', '')
+    return x.includes(z)
+  }
 
   //check if given param is in download queue in global state
   function downloadQueueContains(item:DownloadQueueItem):boolean{
     let result = false;
     for(let i = 0; i < store.downloadQueue.length; i++){
-      if(JSON.stringify(store.downloadQueue[i]) === JSON.stringify(item))
+      if(xContainsY(store.downloadQueue[i].timestampData, item.timestampData)){ //need to use this so we can avoid redownloading videos
         result = true;
+      }
     }
     return result
   }

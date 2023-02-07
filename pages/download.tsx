@@ -15,6 +15,15 @@ const Download: NextPage = () => {
     setIsLight(store.isLight);
   }, [store.isLight]);
 
+  useEffect(() => {
+    downloadVideos()
+  }, [])
+
+  function downloadVideos(){
+    console.log(store.downloadQueue)
+
+  }
+
   return (
     <ThemeProvider theme={isLight ? lightTheme : darkTheme}>
       <CssBaseline/>

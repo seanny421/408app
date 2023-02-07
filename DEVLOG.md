@@ -1,5 +1,29 @@
 Most recent changes first
 ---------------------------------------------------------------------
+[07/02]
+
+
+## TODO
+## [1] change breakpoints in captions page
+## [1] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)
+## [2] decouple url fetches from client to server 
+## [3] style url list responsively 
+
+---------------------------------------------------------------------
+[06/02]
+
+- reworked timestamp data in preperation for downloading video snippets
+- implemented downloadQueue and accompanying functions in global state
+- added AddToDownloadQueue row in captions page 
+- added empty download page
+
+## TODO
+## [1] change breakpoints in captions page
+## [1] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)
+## [2] decouple url fetches from client to server 
+## [3] style url list responsively 
+
+---------------------------------------------------------------------
 [23/01]
 
 - added formatTimestamp function to display timestamps in minutes/seconds 
