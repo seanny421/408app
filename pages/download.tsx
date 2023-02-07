@@ -21,7 +21,6 @@ const Download: NextPage = () => {
 
   function downloadVideos(){
     console.log(store.downloadQueue)
-
   }
 
   return (
