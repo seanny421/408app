@@ -2,6 +2,9 @@ Most recent changes first
 ---------------------------------------------------------------------
 [07/02]
 
+- reworked downloadQueue to avoid redownloading youtube vids
+      - when adding to state check for existing url and concat timestamp data if it exists 
+      - changed how we update UI to check if downloadQueue contains timestampData 
 
 ## TODO
 ## [1] change breakpoints in captions page
