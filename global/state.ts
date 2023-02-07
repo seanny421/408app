@@ -50,11 +50,29 @@ const useStore = create<Store>()(
 
       //downloadQueue
       downloadQueue: [],
-      addToDownloadQueue: (item:DownloadQueueItem) => set((state) => ({downloadQueue: [...state.downloadQueue, item]})),
+      // addToDownloadQueue: (item:DownloadQueueItem) => set((state) => ({downloadQueue: [...state.downloadQueue, item]})),
+      addToDownloadQueue: (item:DownloadQueueItem) => set(
+        (state) => ({
+          downloadQueue: checkQueueFor(state.downloadQueue, item) //check for existing urls
+        })
+      ),
       removeFromDownloadQueue: (item:DownloadQueueItem) => set((state) => ({downloadQueue: state.downloadQueue.filter(queueItem => JSON.stringify(queueItem) != JSON.stringify(item))})),
     }), {name: 'boolean-storage'})
   )
 )
+
+//checks if the url is already in the queue, adds timestamp data to relevant url if so
+//if not then add new item to queue
+//so we don't need to redownload youtube videos
+function checkQueueFor(downloadQueue:DownloadQueueItem[], item:DownloadQueueItem):DownloadQueueItem[]{
+  for(let i = 0; i < downloadQueue.length; i++){
+    if(item.url === downloadQueue[i].url){
+      downloadQueue[i].timestampData = downloadQueue[i].timestampData.concat(item.timestampData)
+      return downloadQueue;
+    }
+  }
+  return [...downloadQueue, item];
+}
 
 export default useStore;
 
