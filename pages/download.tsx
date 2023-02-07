@@ -6,10 +6,18 @@ import {useEffect, useState} from 'react'
 import { ThemeProvider, CssBaseline, Button } from '@mui/material'
 import {darkTheme, lightTheme} from '../styles/themes'
 import SettingsMenu from '../components/SettingsMenu'
+import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg'
+const ffmpeg = createFFmpeg({
+  log:true,
+})
 
 const Download: NextPage = () => {
   const store = useStore();
   const [isLight, setIsLight] = useState(true); //default is darkmode
+  const [video, setVideo] = useState<string>()//TEST TODO - REMOVE THIS
+
+  const [downloadedVids, setDownloadedVids] = useState<string[]>([])
+
   //run on store.isLight update
   useEffect(() => {
     setIsLight(store.isLight);
@@ -21,6 +29,44 @@ const Download: NextPage = () => {
 
   function downloadVideos(){
     console.log(store.downloadQueue)
+  }
+
+  const downloadVids = async() => {
+    for(let i = 0; i < store.downloadQueue.length; i++){
+      await callToApi(store.downloadQueue[i].url, i)
+    }
+  }
+
+  // function downloadVids(){
+  //   store.downloadQueue.forEach((queueItem, i) => await callToApi(queueItem.url, i))
+  // }
+
+  const callToApi = async(videourl:string, videoIndex:number) => {
+    console.log(videourl)
+    await fetch('http://localhost:3000/api/download',
+    {method: "POST", body: JSON.stringify(videourl)})
+    .then(res => res.json())
+    .then((data) => {
+      console.log('downloaded')
+      const rawData = new Uint8Array(data.videoData.data)
+      const vid = URL.createObjectURL(new Blob([rawData.buffer], {type: 'video/mp4'}))
+      cutVideo(vid, videoIndex)
+      // setVideo(vid)
+    })
+  }
+
+  const cutVideo = async(video:string, videoIndex:number) => {
+    if(!ffmpeg.isLoaded())
+      await ffmpeg.load()
+    ffmpeg.FS('writeFile', 'initVid.mp4', await fetchFile(video))
+    await ffmpeg.run('-i', 'initVid.mp4', '-ss', '00:00:30', '-to', '00:01:30', '-c:v', 'copy', '-c:a', 'copy', 'outputvid.mp4')
+    .then(() => {
+      const x = ffmpeg.FS('readFile', 'outputvid.mp4')
+      const v = URL.createObjectURL(new Blob([x.buffer], {type: 'video/mp4'}))
+      setVideo(v)
+      setDownloadedVids((downloadedVids) => [...downloadedVids, v])
+    })
+
   }
 
   return (
@@ -36,6 +82,12 @@ const Download: NextPage = () => {
         <main className={styles.main}>
           <SettingsMenu/>
           <h2 className={styles.title}>Download</h2>
+          <button onClick={downloadVids}>Download</button>
+          {downloadedVids.map(function(vid, key){
+            return(
+              <video controls src={vid} key={key}/>
+            )
+          })}
         </main>
       </div>
     </ThemeProvider>
