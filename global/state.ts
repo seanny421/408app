@@ -50,13 +50,15 @@ const useStore = create<Store>()(
 
       //downloadQueue
       downloadQueue: [],
-      // addToDownloadQueue: (item:DownloadQueueItem) => set((state) => ({downloadQueue: [...state.downloadQueue, item]})),
       addToDownloadQueue: (item:DownloadQueueItem) => set(
         (state) => ({
-          downloadQueue: checkQueueFor(state.downloadQueue, item) //check for existing urls
+          downloadQueue: checkQueueForAndAdd(state.downloadQueue, item) //check for existing urls
         })
       ),
-      removeFromDownloadQueue: (item:DownloadQueueItem) => set((state) => ({downloadQueue: state.downloadQueue.filter(queueItem => JSON.stringify(queueItem) != JSON.stringify(item))})),
+      // removeFromDownloadQueue: (item:DownloadQueueItem) => set((state) => ({downloadQueue: state.downloadQueue.filter(queueItem => JSON.stringify(queueItem) != JSON.stringify(item))})),
+      removeFromDownloadQueue: (item:DownloadQueueItem) => set(
+        (state) => ({downloadQueue: checkQueueForAndRemove(state.downloadQueue, item)})
+      ),
     }), {name: 'boolean-storage'})
   )
 )
@@ -64,7 +66,7 @@ const useStore = create<Store>()(
 //checks if the url is already in the queue, adds timestamp data to relevant url if so
 //if not then add new item to queue
 //so we don't need to redownload youtube videos
-function checkQueueFor(downloadQueue:DownloadQueueItem[], item:DownloadQueueItem):DownloadQueueItem[]{
+function checkQueueForAndAdd(downloadQueue:DownloadQueueItem[], item:DownloadQueueItem):DownloadQueueItem[]{
   for(let i = 0; i < downloadQueue.length; i++){
     if(item.url === downloadQueue[i].url){
       downloadQueue[i].timestampData = downloadQueue[i].timestampData.concat(item.timestampData)
@@ -72,6 +74,19 @@ function checkQueueFor(downloadQueue:DownloadQueueItem[], item:DownloadQueueItem
     }
   }
   return [...downloadQueue, item];
+}
+
+function checkQueueForAndRemove(downloadQueue:DownloadQueueItem[], item:DownloadQueueItem):DownloadQueueItem[]{
+  for(let i = 0; i < downloadQueue.length; i++){
+    if(item.url === downloadQueue[i].url){
+      item.timestampData.forEach((timestampObj) => {
+        downloadQueue[i].timestampData = downloadQueue[i].timestampData.filter(timestamp => JSON.stringify(timestamp) !== JSON.stringify(timestampObj))
+      })
+      if(downloadQueue[i].timestampData.length > 0)
+        return downloadQueue;
+    }
+  }
+  return downloadQueue.filter(queueItem => queueItem.url !== item.url)
 }
 
 export default useStore;
