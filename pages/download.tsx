@@ -7,6 +7,7 @@ import { ThemeProvider, CssBaseline, Button } from '@mui/material'
 import {darkTheme, lightTheme} from '../styles/themes'
 import SettingsMenu from '../components/SettingsMenu'
 import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg'
+import {TimestampObject} from '../global/types'
 const ffmpeg = createFFmpeg({
   log:true,
 })
@@ -33,7 +34,7 @@ const Download: NextPage = () => {
 
   const downloadVids = async() => {
     for(let i = 0; i < store.downloadQueue.length; i++){
-      await callToApi(store.downloadQueue[i].url, i)
+      await callToApi(store.downloadQueue[i].url, i, store.downloadQueue[i].timestampData[0])
     }
   }
 
@@ -41,16 +42,26 @@ const Download: NextPage = () => {
   //   store.downloadQueue.forEach((queueItem, i) => await callToApi(queueItem.url, i))
   // }
 
-  const callToApi = async(videourl:string, videoIndex:number) => {
+  const callToApi = async(videourl:string, videoIndex:number, timestampData: TimestampObject) => {
     console.log(videourl)
+    const data = {videourl: videourl, timestampData: timestampData}
+    console.log(JSON.stringify(data))
     await fetch('http://localhost:3000/api/download',
-    {method: "POST", body: JSON.stringify(videourl)})
+    {
+      method: "POST", 
+      body: JSON.stringify(data)
+    })
     .then(res => res.json())
     .then((data) => {
-      console.log('downloaded')
+      console.log(typeof(data.videoData.data))
+      console.log(data.videoData.data)
+      // console.log('downloaded')
       const rawData = new Uint8Array(data.videoData.data)
+      console.log(rawData)
       const vid = URL.createObjectURL(new Blob([rawData.buffer], {type: 'video/mp4'}))
-      cutVideo(vid, videoIndex)
+      setDownloadedVids((downloadedVids) => [...downloadedVids, vid])
+      
+      // cutVideo(vid, videoIndex)
       // setVideo(vid)
     })
   }
