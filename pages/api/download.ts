@@ -4,7 +4,6 @@ import ytdl from 'ytdl-core'
 import fs from 'fs'
 const ffmpeg = require('ffmpeg-static')
 import cp from 'child_process'
-import {time} from 'console'
 
 type Data = {
   videoData:any
@@ -46,14 +45,7 @@ export default function handler(
         ffmpegProcess.on('close', () => {
           console.log('done cutting')
           response.push(fs.readFileSync('video' + i + '.mkv'))
-          // res.status(200).json({ videoData: fs.readFileSync('video' + i + '.mkv')})
-          // fs.unlink('video.mkv', (err) => err != null ? console.log('wit ' + err) : console.log(''))
           fs.unlink(('video' + i + '.mkv'), (err) => err != null ? console.log('wit ' + err) : console.log(''))
-          console.log(response.length === timestampData.length)
-          console.log(response.length)
-          console.log(response)
-          console.log(timestampData.length)
-          console.log(timestampData)
           if(response.length === timestampData.length)
             res.status(200).json({ videoData: response})
           // fs.unlink('inputvideo.mp4', (err) => console.log('wit ' + err))
@@ -62,8 +54,7 @@ export default function handler(
 
     })
     .on('close', () => {
-      console.log('SEAN LOOK HERE SEAN LOOK HERE!!!!! DONE')
-      // res.status(200).json({ videoData: response})
+      console.log('NEVER IS LOGGED - SEAN LOOK HERE SEAN LOOK HERE!!!!! DONE')
     })
   }
   catch(e){
