@@ -22,6 +22,11 @@ type Store = {
   downloadQueue: DownloadQueueItem[],
   addToDownloadQueue: (item:DownloadQueueItem) => void; //should this be boolean?
   removeFromDownloadQueue: (item:DownloadQueueItem) => void;
+
+  //actual downloaded clips
+  downloadedClips: string[],
+  addToDownloadedClips: (item:string) => void; //should this be boolean?
+  removeFromDownloadedClips: (item:string) => void;
 }
 
 const useStore = create<Store>()(
@@ -55,10 +60,14 @@ const useStore = create<Store>()(
           downloadQueue: checkQueueForAndAdd(state.downloadQueue, item) //check for existing urls
         })
       ),
-      // removeFromDownloadQueue: (item:DownloadQueueItem) => set((state) => ({downloadQueue: state.downloadQueue.filter(queueItem => JSON.stringify(queueItem) != JSON.stringify(item))})),
       removeFromDownloadQueue: (item:DownloadQueueItem) => set(
         (state) => ({downloadQueue: checkQueueForAndRemove(state.downloadQueue, item)})
       ),
+
+      downloadedClips: [],
+      addToDownloadedClips: (item:string) => set((state) => ({downloadedClips: [...state.downloadedClips, item]})),
+      removeFromDownloadedClips: (item:string) => set((state) => ({downloadedClips: state.downloadedClips.filter(clip => clip !== item)})),
+
     }), {name: 'boolean-storage'})
   )
 )

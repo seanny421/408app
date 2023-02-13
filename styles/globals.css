@@ -129,6 +129,18 @@ a {
   cursor: pointer;
 }
 
+@keyframes rotate {
+  from{
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+.rotate {
+  animation: rotate 2s infinite linear;
+}
+
 @media only screen and (min-width: 1000px){
   .url-list-card {
     width: 60vw;

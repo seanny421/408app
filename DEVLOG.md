@@ -1,5 +1,21 @@
 Most recent changes first
 ---------------------------------------------------------------------
+[13/02]
+
+- made download page where we call the server, download the video, and cut any
+parts we need and send back in reponse
+- added downloadedClips to global state
+- added CutVideoCard for frontend
+- removed strict mode from next.config.js
+
+## TODO
+## [1] make start on videoEditing page
+## [1] change breakpoints in captions page
+## [1] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)
+## [2] decouple url fetches from client to server 
+## [3] style url list responsively 
+
+---------------------------------------------------------------------
 [07/02]
 
 - reworked downloadQueue to avoid redownloading youtube vids
