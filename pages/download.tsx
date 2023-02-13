@@ -6,21 +6,52 @@ import {useEffect, useState} from 'react'
 import { ThemeProvider, CssBaseline, Button } from '@mui/material'
 import {darkTheme, lightTheme} from '../styles/themes'
 import SettingsMenu from '../components/SettingsMenu'
+import {TimestampObject} from '../global/types'
+import CutVideoCard from '../components/Download/CutVideoCard'
+import RotateRightIcon from '@mui/icons-material/RotateRight';
 
 const Download: NextPage = () => {
   const store = useStore();
   const [isLight, setIsLight] = useState(true); //default is darkmode
+
+  const [downloadedVids, setDownloadedVids] = useState<string[]>([])
+  const [areVidsDownloaded, setAreVidsDownloaded] = useState(false)
+
   //run on store.isLight update
   useEffect(() => {
     setIsLight(store.isLight);
   }, [store.isLight]);
 
   useEffect(() => {
-    downloadVideos()
+    console.log('i fire once')
+    if(!areVidsDownloaded)
+      downloadVids()
   }, [])
 
-  function downloadVideos(){
-    console.log(store.downloadQueue)
+  const downloadVids = async() => {
+    for(let i = 0; i < store.downloadQueue.length; i++){
+      await callToApi(store.downloadQueue[i].url, i, store.downloadQueue[i].timestampData)
+    }
+    setAreVidsDownloaded(true)
+  }
+
+  const callToApi = async(videourl:string, videoIndex:number, timestampData: TimestampObject[]) => {
+    console.log(videourl)
+    const data = {videourl: videourl, timestampData: timestampData}
+    await fetch('http://localhost:3000/api/download',
+    {
+      method: "POST", 
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then((data) => {
+      for(let i = 0; i < data.videoData.length; i++){
+        const rawData = new Uint8Array(data.videoData[i].data)
+        const vid = URL.createObjectURL(new Blob([rawData.buffer], {type: 'video/mp4'}))
+        setDownloadedVids((downloadedVids) => [...downloadedVids, vid])
+        store.addToDownloadedClips(vid)
+      }
+    })
   }
 
   return (
@@ -35,7 +66,22 @@ const Download: NextPage = () => {
 
         <main className={styles.main}>
           <SettingsMenu/>
-          <h2 className={styles.title}>Download</h2>
+          {/*<h2 className={styles.title}>Download</h2>*/}
+          {/*<button onClick={downloadVids}>Download</button>*/}
+          {downloadedVids.length > 1 &&
+            <h2>Decide what clips to keep or get rid of</h2>
+          }
+          {downloadedVids.map(function(vid, key){
+            return(
+              <CutVideoCard vid={vid} key={key}/>
+            )
+          })}
+          {!areVidsDownloaded &&
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+              <h1>Loading your selected videos, please wait</h1>
+              <RotateRightIcon style={{fontSize: '3rem'}} className="rotate"/>
+            </div>
+          }
         </main>
       </div>
     </ThemeProvider>
