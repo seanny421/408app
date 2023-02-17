@@ -9,6 +9,7 @@ parts we need and send back in reponse
 - removed strict mode from next.config.js
 
 ## TODO
+## [?] catch up with testing
 ## [1] make start on videoEditing page
 ## [1] change breakpoints in captions page
 ## [1] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)

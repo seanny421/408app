@@ -35,3 +35,9 @@ export type MatchDictionary = {
     }
   }
 }
+
+export type DownloadedClip = {
+  // url: string,
+  timestamp: TimestampObject,
+  rawData: ArrayBuffer
+}

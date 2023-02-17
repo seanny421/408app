@@ -6,15 +6,16 @@ import {useEffect, useState} from 'react'
 import { ThemeProvider, CssBaseline, Button } from '@mui/material'
 import {darkTheme, lightTheme} from '../styles/themes'
 import SettingsMenu from '../components/SettingsMenu'
-import {TimestampObject} from '../global/types'
+import {DownloadedClip, TimestampObject} from '../global/types'
 import CutVideoCard from '../components/Download/CutVideoCard'
 import RotateRightIcon from '@mui/icons-material/RotateRight';
+const compressarray = require('array-compression')
 
 const Download: NextPage = () => {
   const store = useStore();
   const [isLight, setIsLight] = useState(true); //default is darkmode
 
-  const [downloadedVids, setDownloadedVids] = useState<string[]>([])
+  const [downloadedVids, setDownloadedVids] = useState<DownloadedClip[]>([])
   const [areVidsDownloaded, setAreVidsDownloaded] = useState(false)
 
   //run on store.isLight update
@@ -23,7 +24,6 @@ const Download: NextPage = () => {
   }, [store.isLight]);
 
   useEffect(() => {
-    console.log('i fire once')
     if(!areVidsDownloaded)
       downloadVids()
   }, [])
@@ -46,10 +46,12 @@ const Download: NextPage = () => {
     .then(res => res.json())
     .then((data) => {
       for(let i = 0; i < data.videoData.length; i++){
-        const rawData = new Uint8Array(data.videoData[i].data)
-        const vid = URL.createObjectURL(new Blob([rawData.buffer], {type: 'video/mp4'}))
-        setDownloadedVids((downloadedVids) => [...downloadedVids, vid])
-        store.addToDownloadedClips(vid)
+        const rawData = new Uint8Array(data.videoData[i].video.data)
+        // const vid = URL.createObjectURL(new Blob([rawData.buffer], {type: 'video/mp4'}))
+        console.log(data.videoData[i].timestamp)
+        const downloadedObject = {timestamp: data.videoData[i].timestamp, rawData: rawData.buffer}
+        setDownloadedVids((downloadedVids) => [...downloadedVids, downloadedObject])
+        store.addToDownloadedClips(downloadedObject)
       }
     })
   }
@@ -66,8 +68,6 @@ const Download: NextPage = () => {
 
         <main className={styles.main}>
           <SettingsMenu/>
-          {/*<h2 className={styles.title}>Download</h2>*/}
-          {/*<button onClick={downloadVids}>Download</button>*/}
           {downloadedVids.length > 1 &&
             <h2>Decide what clips to keep or get rid of</h2>
           }

@@ -1,7 +1,7 @@
 import {Url} from 'url';
 import create from 'zustand'
 import {devtools, persist} from 'zustand/middleware';
-import { DownloadQueueItem, VideoObject } from './types';
+import { DownloadedClip, DownloadQueueItem, VideoObject } from './types';
 
 type Store = {
   isLight: boolean;
@@ -24,9 +24,9 @@ type Store = {
   removeFromDownloadQueue: (item:DownloadQueueItem) => void;
 
   //actual downloaded clips
-  downloadedClips: string[],
-  addToDownloadedClips: (item:string) => void; //should this be boolean?
-  removeFromDownloadedClips: (item:string) => void;
+  downloadedClips: DownloadedClip[],
+  addToDownloadedClips: (item:DownloadedClip) => void; //should this be boolean?
+  removeFromDownloadedClips: (item:DownloadedClip) => void;
 }
 
 const useStore = create<Store>()(
@@ -65,12 +65,28 @@ const useStore = create<Store>()(
       ),
 
       downloadedClips: [],
-      addToDownloadedClips: (item:string) => set((state) => ({downloadedClips: [...state.downloadedClips, item]})),
-      removeFromDownloadedClips: (item:string) => set((state) => ({downloadedClips: state.downloadedClips.filter(clip => clip !== item)})),
+      addToDownloadedClips: (item:DownloadedClip) => set((state) => ({downloadedClips: checkDownloadedAndAdd(state.downloadedClips, item)})),
+      removeFromDownloadedClips: (item:DownloadedClip) => set((state) => ({downloadedClips: state.downloadedClips.filter(clip => clip !== item)})),
 
     }), {name: 'boolean-storage'})
   )
 )
+
+function checkDownloadedAndAdd(downloadedClips: DownloadedClip[], item:DownloadedClip){
+  console.log(item.timestamp)
+  for(let i = 0; i < downloadedClips.length; i++){
+    console.log(i)
+    console.log(downloadedClips[i].timestamp)
+    // console.log(item.rawData === downloadedClips[i].rawData)
+    console.log(JSON.stringify(item.timestamp) === JSON.stringify(downloadedClips[i].timestamp))
+    if(JSON.stringify(item.timestamp) === JSON.stringify(downloadedClips[i].timestamp)){
+      return downloadedClips;
+    }
+  }
+  console.log('we here')
+  return [...downloadedClips, item];
+
+}
 
 //checks if the url is already in the queue, adds timestamp data to relevant url if so
 //if not then add new item to queue

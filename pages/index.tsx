@@ -33,7 +33,8 @@ const Home: NextPage = () => {
         <main className={styles.main}>
           <ToastContainer className="toast" theme={isLight ? "light" : "dark"}/>
           <SettingsMenu/>
-          <h2 className={styles.title}>Welcome to 408 Project</h2>
+          <h2 className={styles.title}>Vashup/Meshly/Mashly</h2>
+          <h3>The in browser mashup creator</h3>
           <p>Please enter a url to get started.</p>
           <div className='input-container'>
             <HomeInputBar isLight={isLight}/>
