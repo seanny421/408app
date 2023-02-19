@@ -44,7 +44,10 @@ export default function handler(
 
         ffmpegProcess.on('close', () => {
           console.log('done cutting')
-          response.push(fs.readFileSync('video' + i + '.mkv'))
+          response.push({
+           video: fs.readFileSync('video' + i + '.mkv'),
+           timestamp: timestampData[i]
+          })
           fs.unlink(('video' + i + '.mkv'), (err) => err != null ? console.log('wit ' + err) : console.log(''))
           if(response.length === timestampData.length)
             res.status(200).json({ videoData: response})

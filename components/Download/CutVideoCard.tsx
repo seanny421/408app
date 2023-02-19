@@ -4,23 +4,43 @@ import { lightTheme } from '../../styles/themes'
 import { styled } from "@mui/system"
 import {useEffect, useState} from 'react';
 import useStore from '../../global/state';
+import {DownloadedClip} from '../../global/types';
 interface CutVideoProps {
-  vid: string, 
+  vid: DownloadedClip, 
 }
 
 export default function CutVideoCard(props:CutVideoProps){
-  const [selected, setSelected] = useState(true);
+  const [selected, setSelected] = useState(false); //default is false
   const store = useStore()
 
+  useEffect(() => {
+    setSelected(downloadClipContains(props.vid))
+  }, [])
+
+  function downloadClipContains(item: DownloadedClip):boolean{
+    let result = false;
+    for(let i = 0; i < store.downloadedClips.length; i++){
+      if(JSON.stringify(store.downloadedClips[i].timestamp) === JSON.stringify(item.timestamp))
+        result = true;
+    }
+    return result
+  }
+
   function toggleSelected(){
-    store.removeFromDownloadedClips(props.vid)
+    console.log(selected)
+    if(selected){
+      console.log('removing')
+      store.removeFromDownloadedClips(props.vid)
+    }
+    else if(!selected)
+      store.addToDownloadedClips(props.vid)
     setSelected(!selected)
   }
 
   //FIXME - used for testing
-  // useEffect(() => {
-  //   console.log(store.downloadedClips)
-  // }, [store.downloadedClips])
+  useEffect(() => {
+    console.log(store.downloadedClips)
+  }, [store.downloadedClips])
 
   const Card = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -30,7 +50,8 @@ export default function CutVideoCard(props:CutVideoProps){
     marginBottom: '2.5rem',
     background: theme === lightTheme ? '#fff': '#000',
     color: theme === lightTheme ? '#000': '#fff',
-    border: `2px solid ${theme.palette.primary.main}`
+    border: `2px solid ${theme.palette.primary.main}`,
+    width: '90%'
   }));
 
   const DivUnderlinedThemed = styled('div')(({ theme }) => ({
@@ -39,6 +60,10 @@ export default function CutVideoCard(props:CutVideoProps){
     borderBottomWidth: '100%',
     marginBottom: '1rem',
   }));
+
+  function createVideoUrl(buffer:ArrayBuffer){
+    return String(URL.createObjectURL(new Blob([buffer], {type: 'video/mp4'})))
+  }
 
   return (
       <Card>
@@ -61,8 +86,7 @@ export default function CutVideoCard(props:CutVideoProps){
         }
 
         </div>
-        <video style={{padding: '1rem'}} controls src={props.vid} />
-
+        <video style={{padding: '1rem', width: '100%'}} controls src={createVideoUrl(props.vid.bufferData)} />
       </Card>
 
 
