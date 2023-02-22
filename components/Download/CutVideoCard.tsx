@@ -5,6 +5,8 @@ import { styled } from "@mui/system"
 import {useEffect, useState} from 'react';
 import useStore from '../../global/state';
 import {DownloadedClip} from '../../global/types';
+import { compress, decompress } from '@amoutonbrady/lz-string'
+
 interface CutVideoProps {
   vid: DownloadedClip, 
 }
@@ -61,8 +63,11 @@ export default function CutVideoCard(props:CutVideoProps){
     marginBottom: '1rem',
   }));
 
-  function createVideoUrl(buffer:ArrayBuffer){
-    return String(URL.createObjectURL(new Blob([buffer], {type: 'video/mp4'})))
+  function createVideoUrl(buffer:string){
+    const x = new Uint8Array((decompress(buffer)).split(','))
+    console.log(x)
+    console.log(URL.createObjectURL(new Blob([x.buffer], {type: 'video/mp4'})))
+    return String(URL.createObjectURL(new Blob([x.buffer], {type: 'video/mp4'})))
   }
 
   return (

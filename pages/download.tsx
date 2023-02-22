@@ -9,6 +9,7 @@ import SettingsMenu from '../components/SettingsMenu'
 import {DownloadedClip, TimestampObject} from '../global/types'
 import CutVideoCard from '../components/Download/CutVideoCard'
 import RotateRightIcon from '@mui/icons-material/RotateRight';
+import { compress, decompress } from '@amoutonbrady/lz-string'
 
 const Download: NextPage = () => {
   const store = useStore();
@@ -45,11 +46,37 @@ const Download: NextPage = () => {
     .then((data) => {
       for(let i = 0; i < data.videoData.length; i++){
         const rawData = new Uint8Array(data.videoData[i].video.data)
-        const downloadedObject = {timestamp: data.videoData[i].timestamp, bufferData: rawData.buffer}
+        // const view = compressIt(rawData)
+        console.log(rawData)
+        console.log((rawData).toString())
+        const view = compress((rawData).toString())
+        // console.log(compress(JSON.stringify(rawData)))
+        console.log(rawData)
+        const downloadedObject = {timestamp: data.videoData[i].timestamp, bufferData: view}
         setDownloadedVids((downloadedVids) => [...downloadedVids, downloadedObject])
         // store.addToDownloadedClips(downloadedObject)
       }
     })
+  }
+
+  function compressIt(array){
+    // var array = [];
+    for (var i = 0; i < 1024; i++) {
+        array[array.length] = i % 255;
+    }
+    var string = String.fromCharCode.apply(null, array);
+    var compressed = compress(string);
+    var decompressed = decompress(compressed);
+    var dearray = [];
+    for (var i = 0; i < decompressed.length; i++) {
+        dearray[i] = decompressed.charCodeAt(i);
+    }
+    console.log(array.length, array);
+    console.log(string.length, string);
+    console.log(compressed.length, compressed);
+    console.log(decompressed.length, decompressed);
+    console.log(dearray.length, dearray);
+
   }
 
   return (

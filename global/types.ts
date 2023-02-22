@@ -38,5 +38,5 @@ export type MatchDictionary = {
 
 export type DownloadedClip = {
   timestamp: TimestampObject,
-  bufferData: ArrayBuffer
+  bufferData: string
 }
