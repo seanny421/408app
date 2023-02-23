@@ -5,6 +5,8 @@ import { styled } from "@mui/system"
 import {useEffect, useState} from 'react';
 import useStore from '../../global/state';
 import {DownloadedClip} from '../../global/types';
+import PouchDB from 'pouchdb'
+
 interface CutVideoProps {
   vid: DownloadedClip, 
 }
@@ -32,9 +34,27 @@ export default function CutVideoCard(props:CutVideoProps){
       console.log('removing')
       store.removeFromDownloadedClips(props.vid)
     }
-    else if(!selected)
-      store.addToDownloadedClips(props.vid)
+    else if(!selected){
+      // store.addToDownloadedClips(props.vid)
+      addToDB()
+
+    }
     setSelected(!selected)
+  }
+  
+  function addToDB(){
+    const clip = {
+      timestamp: props.vid.timestamp,
+      bufferData: props.vid.bufferData
+    };
+    const db = getDB()
+    db.post(clip);
+  }
+
+  function getDB(){
+    if(process.browser){
+      return new PouchDB('cutVids', {auto_compaction: true})
+    }
   }
 
   //FIXME - used for testing
