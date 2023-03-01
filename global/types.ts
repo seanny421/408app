@@ -37,6 +37,14 @@ export type MatchDictionary = {
 }
 
 export type DownloadedClip = {
+  id?: string, // for indexDB
+  rev?: string, //for indexDB
   timestamp: TimestampObject,
   bufferData: ArrayBuffer
+}
+
+export type ContainedDBRes = {
+  result: boolean,
+  id?: string,
+  rev?:string,
 }

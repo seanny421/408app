@@ -5,6 +5,8 @@ import { styled } from "@mui/system"
 import {useEffect, useState} from 'react';
 import useStore from '../../global/state';
 import {DownloadedClip} from '../../global/types';
+import { addToDB, removeFromDB, cutVideodDBContains } from '../../global/pouch.db'
+
 interface CutVideoProps {
   vid: DownloadedClip, 
 }
@@ -14,26 +16,30 @@ export default function CutVideoCard(props:CutVideoProps){
   const store = useStore()
 
   useEffect(() => {
-    setSelected(downloadClipContains(props.vid))
+    setAppropriateSelected()
   }, [])
 
-  function downloadClipContains(item: DownloadedClip):boolean{
-    let result = false;
-    for(let i = 0; i < store.downloadedClips.length; i++){
-      if(JSON.stringify(store.downloadedClips[i].timestamp) === JSON.stringify(item.timestamp))
-        result = true;
+  async function setAppropriateSelected(){
+    const res = await cutVideodDBContains(props.vid)
+    if(res.result){
+      props.vid.id = res.id
+      props.vid.rev = res.rev
     }
-    return result
+    setSelected(res.result)
   }
 
-  function toggleSelected(){
+  async function toggleSelected(){
     console.log(selected)
     if(selected){
       console.log('removing')
-      store.removeFromDownloadedClips(props.vid)
+      removeFromDB('cutVideos', props.vid)
     }
-    else if(!selected)
-      store.addToDownloadedClips(props.vid)
+    else if(!selected){
+      const res = await addToDB('cutVideos', props.vid)
+      props.vid.id = res.split('`')[0];
+      props.vid.rev = res.split('`')[1];
+      console.log(props.vid)
+    }
     setSelected(!selected)
   }
 
