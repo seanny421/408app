@@ -1,5 +1,20 @@
 Most recent changes first
 ---------------------------------------------------------------------
+[02/03]
+
+- reworked adding to download queue so user can choose what timestamp they want to download on the captions page
+  (reduces work done cutting videos on the server)
+
+- not been keeping up with DEVLOG, need to remember to do this
+
+## TODO
+## [1] make start on videoEditing page
+## [1] change breakpoints in captions page
+## [1] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)
+## [2] decouple url fetches from client to server 
+## [3] style url list responsively 
+
+---------------------------------------------------------------------
 [13/02]
 
 - made download page where we call the server, download the video, and cut any
