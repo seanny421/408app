@@ -5,7 +5,6 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {useState} from "react";
 import { MatchDictionary } from "../../global/types";
-import AddToQueueRow from "./AddToQueueRow";
 
 const Card = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -22,7 +21,6 @@ const TermHeadingContainer = styled('div')(({ theme }) => ({
   flex: 1,
   justifyContent: 'space-between',
   alignItems: 'center',
-  // borderBottom: `2px solid ${theme.palette.primary.main}`
 }));
 
 const BorderBottom = styled('div')(({ theme }) => ({
@@ -91,8 +89,6 @@ export default function TermCard(props:Props){
                 return(
                   <RowContainer key={i}>
                     <TimestampRow lastItem={isLastItem} key={i} vidObject={vidObject} timestamps={props.matchDict[props.term][i]?.timestamps}/>
-                    <AddToQueueRow url={vidObject.url} timestampData={props.matchDict[props.term][i]?.timestamps}/>
-
                   </RowContainer>
                 );
               }
