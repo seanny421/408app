@@ -3,7 +3,7 @@ import {CutVideoObject} from "../../global/types"
 import useStore from "../../global/state"
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg"
 const ffmpeg = createFFmpeg({
-  log: true,
+  // log: true,
 })
 
 interface Props {
@@ -39,7 +39,15 @@ export default function MainPreview(props:Props){
     for(let i = 0; i < store.timelineVideos.length; i++){
       if(ffmpeg.isLoaded()){
         try{
-          ffmpeg.FS('readFile', 'mainpreview.mp4')
+          const mainpreview = ffmpeg.FS('readFile', 'mainpreview.mp4')
+          ffmpeg.FS('writeFile', 'tempVid.mp4', await fetchFile(new Blob([store.timelineVideos[i].doc.bufferData], {type: 'video/mp4'})))
+
+          await ffmpeg.run('-i', 'mainpreview.mp4', '-vcodec', 'copy', '-vbsf', 'h264_mp4toannexb', '-acodec', 'copy', 'part1.ts')
+          await ffmpeg.run('-i', 'tempVid.mp4', '-vcodec', 'copy', '-vbsf', 'h264_mp4toannexb', '-acodec', 'copy', 'part2.ts')
+          await ffmpeg.run('-i', 'concat:part1.ts|part2.ts', '-codec', 'copy', 'output.mkv')
+
+          const output = ffmpeg.FS('readFile', 'output.mkv')
+          ffmpeg.FS('writeFile', 'mainpreview.mp4', output)
         } catch(err){//if mainpreview.mp4 is not defined yet
           ffmpeg.FS('writeFile', 'mainpreview.mp4', await fetchFile(new Blob([store.timelineVideos[i].doc.bufferData], {type: 'video/mp4'})))
         }
@@ -55,6 +63,7 @@ export default function MainPreview(props:Props){
       try {
         const vid = ffmpeg.FS('readFile', 'mainpreview.mp4')
         setMainPreviewVideo(createVideoUrl(vid.buffer))
+        ffmpeg.FS('unlink', 'mainpreview.mp4')
       } catch(err){
           console.log(err)
           setMainPreviewVideo('')
@@ -64,7 +73,13 @@ export default function MainPreview(props:Props){
   }
 
   return (
-    <video style={{padding: '1rem', width: '100%'}} controls src={mainpreviewVideo} />
+    <div>
+      {mainpreviewVideo != '' &&
+        <video style={{padding: '1rem', width: '100%'}} controls src={mainpreviewVideo} />}
+      {mainpreviewVideo == '' &&
+        <video style={{padding: '1rem', width: '100%'}} controls src={''} />}
+
+    </div>
 
   )
 }

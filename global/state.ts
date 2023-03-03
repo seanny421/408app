@@ -75,11 +75,20 @@ const useStore = create<Store>()(
 
       //editor
       timelineVideos: [],
-      addToTimeline: (item: CutVideoObject) => set((state) => ({timelineVideos: [...state.timelineVideos, item]})),
+      addToTimeline: (item: CutVideoObject) => set((state) => ({timelineVideos: checkTimelineAndAdd(item, state.timelineVideos)})),
       removeFromTimeline:(item: CutVideoObject) => set((state) => ({timelineVideos: state.timelineVideos.filter(vid => vid != item)})),
     }), {name: 'boolean-storage'})
   )
 )
+
+function checkTimelineAndAdd(item:CutVideoObject, timelineVideos:CutVideoObject[]){
+  for(let i = 0; i < timelineVideos.length; i++){
+    if(JSON.stringify(timelineVideos[i].doc.timestamp) === JSON.stringify(item.doc.timestamp))
+      return timelineVideos
+  }
+  return [...timelineVideos, item]
+
+}
 
 //checks if the clip is already in the list, adds clip if so
 function checkForDownloadedClipDuplicates(downloadedClips: DownloadedClip[], item: DownloadedClip){
