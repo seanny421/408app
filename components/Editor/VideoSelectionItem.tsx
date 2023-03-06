@@ -1,43 +1,27 @@
 import {useEffect, useState} from "react"
 import {CutVideoObject} from "../../global/types"
-import { CheckCircle, Cancel } from "@mui/icons-material"
 import useStore from "../../global/state"
+import Image from "next/image"
 
 interface Props{
-  video:CutVideoObject
+  video:CutVideoObject,
 }
 
 export default function VideoSelectionItem(props:Props){
-  const [inTimeline, setInTimeline] = useState<boolean>(false);
   const store = useStore()
 
-  // useEffect(() => {
-  //   checkInTimeline()
-  // }, []) 
-
-  // function checkInTimeline(){
-  //   for(let i = 0; i < store.timelineVideos.length; i++){
-  //     if(JSON.stringify(store.timelineVideos[i].doc.timestamp) === JSON.stringify(props.video.doc.timestamp))
-  //       setInTimeline(true)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   // console.log(store.timelineVideos)
-  //   checkInTimeline()
-  // }, [store.timelineVideos])
-  
   function addToTimeline(){
     store.addToTimeline(props.video)
   }
 
+  function createVidUrl(buffer:ArrayBuffer){
+    return String(URL.createObjectURL(new Blob([buffer], {type: 'video/mp4'})))
+  }
+
   return (
-    // <Image layout="fill" key={i} src={createImage(video.doc.bufferData)} alt={'image'+i}/>
     <div style={{display: 'flex', alignItems: 'center'}}>
-    <h4>{props.video.id}</h4>
+    <video width='70%' controls src={createVidUrl(props.video.doc.bufferData)}/>
     <button onClick={addToTimeline}>Add</button>
-    {/*inTimeline && <CheckCircle className="hover-cursor" style={{color:'green'}} onClick={handleToggle}/> }
-    {!inTimeline && <Cancel className="hover-cursor" style={{color:'red'}} onClick={handleToggle}/> */}
 
     </div>
   )

@@ -11,6 +11,7 @@ import {CutVideoObject} from '../global/types'
 import MainPreview from '../components/Editor/MainPreview'
 import VideoSelectionList from '../components/Editor/VideoSelectionList'
 import Timeline from '../components/Editor/Timeline'
+import { styled } from "@mui/system"
 
 
 const Editor: NextPage = () => {
@@ -39,6 +40,18 @@ const Editor: NextPage = () => {
     // console.log(typeof(res[0]))
   }
 
+  const PaperContainer = styled('div')(({ theme }) => ({
+    // width: window.innerWidth > 800 ? 200 : 400, 
+    // padding: '0.1rem', 
+    // borderRadius: 10, 
+    border: theme == lightTheme ? `2px solid ${theme.palette.primary.main}`: '',
+    "*::-webkit-scrollbar-thumb":{
+      backgroundColor: `${theme == lightTheme ? 'rgba(150, 153, 151, 1)': 'rgba(150, 153, 151, 0.1)'}`,
+      borderRadius: 100,
+    },
+    display: 'flex', width: '100%', justifyContent: 'space-evenly'
+  }));
+
 
   return (
     <ThemeProvider theme={isLight ? lightTheme : darkTheme}>
@@ -56,10 +69,10 @@ const Editor: NextPage = () => {
           {videos.length > 0 &&
             <MainPreview video={videos[0]}/>
           }
-          <div id='editor-bottom-row' style={{display: 'flex', width: '90%', justifyContent: 'space-evenly'}}>
+          <PaperContainer id='editor-bottom-row' style={{display: 'flex', width: '100%', justifyContent: 'space-evenly'}}>
             <VideoSelectionList videos={videos}/>
             <Timeline/>
-          </div>
+          </PaperContainer>
         </main>
       </div>
     </ThemeProvider>

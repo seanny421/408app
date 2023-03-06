@@ -30,6 +30,7 @@ export default function MainPreview(props:Props){
 
   useEffect(() => {
     updateMainPreview()
+    console.log(store.timelineVideos)
   }, [store.timelineVideos])
 
   //loop through all the timelinevideos and concat with ffmpeg

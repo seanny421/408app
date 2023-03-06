@@ -1,6 +1,9 @@
 import useStore from "../../global/state"
 import {CutVideoObject} from "../../global/types"
 import { useState, useEffect } from "react"
+import {Paper} from "@mui/material"
+import { styled } from "@mui/system"
+import { lightTheme, darkTheme } from "../../styles/themes"
 
 export default function Timeline(){
   const store = useStore()
@@ -16,17 +19,29 @@ export default function Timeline(){
     store.removeFromTimeline(index)
   }
 
+  const PaperContainer = styled('div')(({ theme }) => ({
+    width: window.innerWidth > 800 ? 200 : 400, 
+    padding: '0.1rem', 
+    borderRadius: 10, 
+    border: theme == lightTheme ? `2px solid ${theme.palette.primary.main}`: '',
+    "*::-webkit-scrollbar-thumb":{
+      backgroundColor: `${theme == lightTheme ? 'rgba(150, 153, 151, 1)': 'rgba(150, 153, 151, 0.1)'}`,
+      borderRadius: 100,
+    },
+  }));
+
+
   return(
-    <div>
-      <h3>Timeline</h3>
+    // <h3>Timeline</h3>
+    <Paper style={{display: 'flex',alignItems: 'center', overflow: 'auto', overflowX: 'scroll', width: '50%'}}>
       {timelineVideos.map(function(video:CutVideoObject, i:number){
         return (
-          <div key={i}>
+          <div key={i} style={{margin: '0.5rem'}}>
             <h4>{video.id}</h4>
-            <button onClick={() => removeFromTimeline(i)}>Remove</button>
+            <button onClick={() => store.removeFromTimeline(i)}>Remove</button>
           </div>
         )
       })}
-    </div>
+    </Paper>
   )
 }
