@@ -76,7 +76,7 @@ const useStore = create<Store>()(
       //editor
       timelineVideos: [],
       addToTimeline: (item: CutVideoObject) => set((state) => ({timelineVideos: checkTimelineAndAdd(item, state.timelineVideos)})),
-      removeFromTimeline:(item: CutVideoObject) => set((state) => ({timelineVideos: state.timelineVideos.filter(vid => vid != item)})),
+      removeFromTimeline:(item: CutVideoObject) => set((state) => ({timelineVideos: state.timelineVideos.filter(vid => JSON.stringify(vid.doc.timestamp) != JSON.stringify(item.doc.timestamp))})),
     }), {name: 'boolean-storage'})
   )
 )
@@ -86,7 +86,16 @@ function checkTimelineAndAdd(item:CutVideoObject, timelineVideos:CutVideoObject[
     if(JSON.stringify(timelineVideos[i].doc.timestamp) === JSON.stringify(item.doc.timestamp))
       return timelineVideos
   }
-  return [...timelineVideos, item]
+  const newItem:CutVideoObject = {
+    id: item.id,
+    doc: {
+      timestamp: item.doc.timestamp,
+      bufferData: JSON.stringify(Array.from(new Uint8Array(item.doc.bufferData)))
+    },
+    key: item.key,
+    value: item.value
+  }
+  return [...timelineVideos, newItem]
 
 }
 

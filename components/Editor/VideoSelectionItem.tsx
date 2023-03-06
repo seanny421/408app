@@ -11,6 +11,17 @@ export default function VideoSelectionItem(props:Props){
   const [inTimeline, setInTimeline] = useState<boolean>(false);
   const store = useStore()
 
+  useEffect(() => {
+    checkInTimeline()
+  }, []) 
+
+  function checkInTimeline(){
+    for(let i = 0; i < store.timelineVideos.length; i++){
+      if(JSON.stringify(store.timelineVideos[i].doc.timestamp) === JSON.stringify(props.video.doc.timestamp))
+        setInTimeline(true)
+    }
+  }
+
   function handleToggle(){
     if(inTimeline)
       removeFromTimeline()
