@@ -1,7 +1,7 @@
 import {Url} from 'url';
 import create from 'zustand'
 import {devtools, persist} from 'zustand/middleware';
-import { DownloadedClip, DownloadQueueItem, VideoObject } from './types';
+import { CutVideoObject, DownloadedClip, DownloadQueueItem, VideoObject } from './types';
 
 type Store = {
   isLight: boolean;
@@ -27,6 +27,11 @@ type Store = {
   downloadedClips: DownloadedClip[],
   addToDownloadedClips: (item:DownloadedClip) => void; //should this be boolean?
   removeFromDownloadedClips: (item:DownloadedClip) => void;
+
+  //for editor
+  timelineVideos: CutVideoObject[],
+  addToTimeline: (item: CutVideoObject) => void;
+  removeFromTimeline:(item: CutVideoObject) => void;
 }
 
 const useStore = create<Store>()(
@@ -67,9 +72,23 @@ const useStore = create<Store>()(
       downloadedClips: [],
       addToDownloadedClips: (item:DownloadedClip) => set((state) => ({downloadedClips: checkForDownloadedClipDuplicates(state.downloadedClips, item)})),
       removeFromDownloadedClips: (item:DownloadedClip) => set((state) => ({downloadedClips: state.downloadedClips.filter(clip => clip.timestamp != item.timestamp)})),
+
+      //editor
+      timelineVideos: [],
+      addToTimeline: (item: CutVideoObject) => set((state) => ({timelineVideos: checkTimelineAndAdd(item, state.timelineVideos)})),
+      removeFromTimeline:(item: CutVideoObject) => set((state) => ({timelineVideos: state.timelineVideos.filter(vid => vid != item)})),
     }), {name: 'boolean-storage'})
   )
 )
+
+function checkTimelineAndAdd(item:CutVideoObject, timelineVideos:CutVideoObject[]){
+  for(let i = 0; i < timelineVideos.length; i++){
+    if(JSON.stringify(timelineVideos[i].doc.timestamp) === JSON.stringify(item.doc.timestamp))
+      return timelineVideos
+  }
+  return [...timelineVideos, item]
+
+}
 
 //checks if the clip is already in the list, adds clip if so
 function checkForDownloadedClipDuplicates(downloadedClips: DownloadedClip[], item: DownloadedClip){

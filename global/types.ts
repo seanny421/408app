@@ -48,3 +48,13 @@ export type ContainedDBRes = {
   id?: string,
   rev?:string,
 }
+
+export type CutVideoObject = {
+  id: string,
+  key: string,
+  value: {rev: string},
+  doc: {
+    bufferData: ArrayBuffer,
+    timestamp: TimestampObject,
+  }
+}

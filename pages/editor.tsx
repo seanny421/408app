@@ -7,11 +7,16 @@ import { ThemeProvider, CssBaseline, Button } from '@mui/material'
 import {darkTheme, lightTheme} from '../styles/themes'
 import SettingsMenu from '../components/SettingsMenu'
 import { getAllDocs } from '../global/pouch.db'
+import {CutVideoObject} from '../global/types'
+import MainPreview from '../components/Editor/MainPreview'
+import VideoSelectionList from '../components/Editor/VideoSelectionList'
+import Timeline from '../components/Editor/Timeline'
+
 
 const Editor: NextPage = () => {
   const store = useStore();
   const [isLight, setIsLight] = useState(true); //default is darkmode
-  const [videos, setVideos] = useState<Object[]>([]);
+  const [videos, setVideos] = useState<CutVideoObject[]>([]);
 
 
   //run on store.isLight update
@@ -24,15 +29,16 @@ const Editor: NextPage = () => {
     getVidsFromDB()
   }, []);
 
+  useEffect(() => {
+    console.log(videos)
+  }, [videos]);
+
   async function getVidsFromDB(){
     const res = await getAllDocs('cutVideos')
-    setVideos(res)
+    setVideos(res as CutVideoObject[])
     // console.log(typeof(res[0]))
   }
 
-  function createVideoUrl(buffer:ArrayBuffer){
-    return String(URL.createObjectURL(new Blob([buffer], {type: 'video/mp4'})))
-  }
 
   return (
     <ThemeProvider theme={isLight ? lightTheme : darkTheme}>
@@ -47,11 +53,13 @@ const Editor: NextPage = () => {
         <main className={styles.main}>
           <SettingsMenu/>
           <h2 className={styles.title}>Editor</h2>
-          {videos.map(function(video, i){
-            return (
-              <video key={i} style={{padding: '1rem', width: '100%'}} controls src={createVideoUrl(video.doc.bufferData)} />
-            )
-          })}
+          {videos.length > 0 &&
+            <MainPreview video={videos[0]}/>
+          }
+          <div id='editor-bottom-row' style={{display: 'flex', width: '90%', justifyContent: 'space-evenly'}}>
+            <VideoSelectionList videos={videos}/>
+            <Timeline/>
+          </div>
         </main>
       </div>
     </ThemeProvider>
