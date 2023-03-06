@@ -30,20 +30,12 @@ const Editor: NextPage = () => {
     getVidsFromDB()
   }, []);
 
-  useEffect(() => {
-    console.log(videos)
-  }, [videos]);
-
   async function getVidsFromDB(){
     const res = await getAllDocs('cutVideos')
     setVideos(res as CutVideoObject[])
-    // console.log(typeof(res[0]))
   }
 
   const PaperContainer = styled('div')(({ theme }) => ({
-    // width: window.innerWidth > 800 ? 200 : 400, 
-    // padding: '0.1rem', 
-    // borderRadius: 10, 
     border: theme == lightTheme ? `2px solid ${theme.palette.primary.main}`: '',
     "*::-webkit-scrollbar-thumb":{
       backgroundColor: `${theme == lightTheme ? 'rgba(150, 153, 151, 1)': 'rgba(150, 153, 151, 0.1)'}`,

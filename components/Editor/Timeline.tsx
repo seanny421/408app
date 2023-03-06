@@ -4,6 +4,9 @@ import { useState, useEffect } from "react"
 import {Paper} from "@mui/material"
 import { styled } from "@mui/system"
 import { lightTheme, darkTheme } from "../../styles/themes"
+import TimelineItem from "./TimelineItem"
+import { DndProvider } from "react-dnd"
+import { HTML5Backend } from "react-dnd-html5-backend"
 
 export default function Timeline(){
   const store = useStore()
@@ -30,18 +33,20 @@ export default function Timeline(){
     },
   }));
 
-
   return(
     // <h3>Timeline</h3>
     <Paper style={{display: 'flex',alignItems: 'center', overflow: 'auto', overflowX: 'scroll', width: '50%'}}>
+      <DndProvider backend={HTML5Backend}>
       {timelineVideos.map(function(video:CutVideoObject, i:number){
         return (
-          <div key={i} style={{margin: '0.5rem'}}>
+          <TimelineItem video={video} index={i} key={i}/>
+          )
+          {/*<div key={i} style={{margin: '0.5rem'}}>
             <h4>{video.id}</h4>
             <button onClick={() => store.removeFromTimeline(i)}>Remove</button>
-          </div>
-        )
+          </div>*/}
       })}
+      </DndProvider>
     </Paper>
   )
 }
