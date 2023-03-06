@@ -22,7 +22,6 @@ export default function MainPreview(props:Props){
 
   useEffect(() => {
     load()
-
   }, [])
 
   const load = async() => {
@@ -39,12 +38,10 @@ export default function MainPreview(props:Props){
     if(!ffmpeg.isLoaded())
       await ffmpeg.load()
     for(let i = 0; i < store.timelineVideos.length; i++){
+      const buffer = new Uint8Array(JSON.parse(store.timelineVideos[i].doc.bufferData)).buffer
+      const vid = new Blob([buffer], {type: 'video/mp4'})
       try{
         const mainpreview = ffmpeg.FS('readFile', 'mainpreview.mp4')
-        console.log(new Uint8Array(JSON.parse(store.timelineVideos[i].doc.bufferData)).buffer)
-        const buff = new Uint8Array(JSON.parse(store.timelineVideos[i].doc.bufferData)).buffer
-        const vid = new Blob([buff], {type: 'video/mp4'})
-        // ffmpeg.FS('writeFile', 'tempVid.mp4', await fetchFile(new Blob([store.timelineVideos[i].doc.bufferData], {type: 'video/mp4'})))
         ffmpeg.FS('writeFile', 'tempVid.mp4', await fetchFile(vid))
 
         await ffmpeg.run('-i', 'mainpreview.mp4', '-vcodec', 'copy', '-vbsf', 'h264_mp4toannexb', '-acodec', 'copy', 'part1.ts')
@@ -54,16 +51,10 @@ export default function MainPreview(props:Props){
         const output = ffmpeg.FS('readFile', 'output.mkv')
         ffmpeg.FS('writeFile', 'mainpreview.mp4', output)
       } catch(err){//if mainpreview.mp4 is not defined yet
-        const buff = new Uint8Array(JSON.parse(store.timelineVideos[i].doc.bufferData)).buffer
-        const vid = new Blob([buff], {type: 'video/mp4'})
-        // ffmpeg.FS('writeFile', 'mainpreview.mp4', await fetchFile(new Blob([store.timelineVideos[i].doc.bufferData], {type: 'video/mp4'})))
-        console.log(JSON.parse(store.timelineVideos[i].doc.bufferData))
         ffmpeg.FS('writeFile', 'mainpreview.mp4', await fetchFile(vid))
       }
     }
     updateVideo()
-    if(store.timelineVideos.length < 1)
-      setMainPreviewVideo('')
   }
 
   async function updateVideo(){
@@ -73,11 +64,9 @@ export default function MainPreview(props:Props){
       const vid = ffmpeg.FS('readFile', 'mainpreview.mp4')
       setMainPreviewVideo(createVideoUrl(vid.buffer))
       ffmpeg.FS('unlink', 'mainpreview.mp4')
-    } catch(err){
-        console.log(err)
+    } catch(err){ //if mainpreview isn't defined
         setMainPreviewVideo('')
     }
-
   }
 
   return (
