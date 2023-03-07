@@ -54,7 +54,7 @@ export type CutVideoObject = {
   key: string,
   value: {rev: string},
   doc: {
-    bufferData: ArrayBuffer,
+    bufferData: string,
     timestamp: TimestampObject,
   }
 }

@@ -31,7 +31,8 @@ type Store = {
   //for editor
   timelineVideos: CutVideoObject[],
   addToTimeline: (item: CutVideoObject) => void;
-  removeFromTimeline:(item: CutVideoObject) => void;
+  removeFromTimeline:(index:number) => void;
+  swapTimelineElements:(indexFrom:number, indexTo:number) => void;
 }
 
 const useStore = create<Store>()(
@@ -76,17 +77,35 @@ const useStore = create<Store>()(
       //editor
       timelineVideos: [],
       addToTimeline: (item: CutVideoObject) => set((state) => ({timelineVideos: checkTimelineAndAdd(item, state.timelineVideos)})),
-      removeFromTimeline:(item: CutVideoObject) => set((state) => ({timelineVideos: state.timelineVideos.filter(vid => vid != item)})),
+      removeFromTimeline:(index:number) => set((state) => ({timelineVideos: removeAtIndex(index, state.timelineVideos)})),
+      swapTimelineElements:(indexFrom:number, indexTo:number) => set((state) => ({timelineVideos: swapElements(indexFrom, indexTo, state.timelineVideos)}))
     }), {name: 'boolean-storage'})
   )
 )
 
+function swapElements(indexFrom:number, indexTo: number, timelineVideos: CutVideoObject[]):CutVideoObject[]{
+  let temp = timelineVideos[indexFrom]
+  timelineVideos[indexFrom] = timelineVideos[indexTo]
+  timelineVideos[indexTo] = temp
+  return [...timelineVideos]
+}
+
+function removeAtIndex(index:number, timelineVideos:CutVideoObject[]):CutVideoObject[]{
+  timelineVideos.splice(index, 1)
+  return [...timelineVideos]
+}
+
 function checkTimelineAndAdd(item:CutVideoObject, timelineVideos:CutVideoObject[]){
-  for(let i = 0; i < timelineVideos.length; i++){
-    if(JSON.stringify(timelineVideos[i].doc.timestamp) === JSON.stringify(item.doc.timestamp))
-      return timelineVideos
+  const newItem:CutVideoObject = {
+    id: item.id,
+    doc: {
+      timestamp: item.doc.timestamp,
+      bufferData: JSON.stringify(Array.from(new Uint8Array(item.doc.bufferData)))
+    },
+    key: item.key,
+    value: item.value
   }
-  return [...timelineVideos, item]
+  return [...timelineVideos, newItem]
 
 }
 
