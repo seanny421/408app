@@ -43,6 +43,9 @@ export default function TimelineItem(props:Props){
   return (
       <div ref={drag} style={{margin: '0.5rem', opacity: isDragging ? '0.5': '1'}}>
         <div ref={drop}>
+          <div className="thumbnail-container" style={{}}>
+            <img src={store.timelineImages[props.index]} style={{width: '200px'}}/>
+          </div>
           <h4>{props.video.id}</h4>
           <button onClick={() => store.removeFromTimeline(props.index)}>Remove</button>
 

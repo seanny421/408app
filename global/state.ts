@@ -33,6 +33,10 @@ type Store = {
   addToTimeline: (item: CutVideoObject) => void;
   removeFromTimeline:(index:number) => void;
   swapTimelineElements:(indexFrom:number, indexTo:number) => void;
+  //timelineimages
+  timelineImages: string[],
+  addToTimelineImages: (url: string) => void;
+  resetImages: () => void;
 }
 
 const useStore = create<Store>()(
@@ -78,7 +82,11 @@ const useStore = create<Store>()(
       timelineVideos: [],
       addToTimeline: (item: CutVideoObject) => set((state) => ({timelineVideos: checkTimelineAndAdd(item, state.timelineVideos)})),
       removeFromTimeline:(index:number) => set((state) => ({timelineVideos: removeAtIndex(index, state.timelineVideos)})),
-      swapTimelineElements:(indexFrom:number, indexTo:number) => set((state) => ({timelineVideos: swapElements(indexFrom, indexTo, state.timelineVideos)}))
+      swapTimelineElements:(indexFrom:number, indexTo:number) => set((state) => ({timelineVideos: swapElements(indexFrom, indexTo, state.timelineVideos)})),
+      //timelineImages
+      timelineImages: [],
+      addToTimelineImages: (url: string) => set((state) => ({timelineImages: [...state.timelineImages, url]})),
+      resetImages: () => set((state) => ({timelineImages: []}))
     }), {name: 'boolean-storage'})
   )
 )

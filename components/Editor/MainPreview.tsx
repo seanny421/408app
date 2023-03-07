@@ -3,7 +3,7 @@ import {CutVideoObject} from "../../global/types"
 import useStore from "../../global/state"
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg"
 const ffmpeg = createFFmpeg({
-  // log: true,
+  log: true,
 })
 
 interface Props {
@@ -14,7 +14,6 @@ interface Props {
 function createVideoUrl(buffer:ArrayBuffer){
   return String(URL.createObjectURL(new Blob([buffer], {type: 'video/mp4'})))
 }
-
 
 export default function MainPreview(props:Props){
   const store = useStore()
@@ -30,7 +29,6 @@ export default function MainPreview(props:Props){
 
   useEffect(() => {
     updateMainPreview()
-    console.log(store.timelineVideos)
   }, [store.timelineVideos])
 
   //loop through all the timelinevideos and concat with ffmpeg
@@ -38,6 +36,7 @@ export default function MainPreview(props:Props){
     console.log('updating mainpreview....')
     if(!ffmpeg.isLoaded())
       await ffmpeg.load()
+    store.resetImages()//reset in case we end up with duplicates
     for(let i = 0; i < store.timelineVideos.length; i++){
       const buffer = new Uint8Array(JSON.parse(store.timelineVideos[i].doc.bufferData)).buffer
       const vid = new Blob([buffer], {type: 'video/mp4'})
@@ -51,11 +50,29 @@ export default function MainPreview(props:Props){
 
         const output = ffmpeg.FS('readFile', 'output.mkv')
         ffmpeg.FS('writeFile', 'mainpreview.mp4', output)
+        //create our images for our timeline
+
       } catch(err){//if mainpreview.mp4 is not defined yet
         ffmpeg.FS('writeFile', 'mainpreview.mp4', await fetchFile(vid))
       }
+      await createTimelineImage(vid)
     }
     updateVideo()
+  }
+
+  async function createTimelineImage(vid:Blob){
+    if(!ffmpeg.isLoaded())
+      await ffmpeg.load()
+    try {
+      ffmpeg.FS('writeFile', 'vidForTimelineImage.mp4', await fetchFile(vid))
+      await ffmpeg.run('-i', 'vidForTimelineImage.mp4', '-frames:v', '1', 'image.jpg')
+      const image = ffmpeg.FS('readFile', 'image.jpg')
+      const url = String(URL.createObjectURL(new Blob([image.buffer], {type: 'image/jpg'})))
+      store.addToTimelineImages(url)
+    } catch(err){
+      console.log(err)
+
+    }
   }
 
   async function updateVideo(){
