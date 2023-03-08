@@ -43,8 +43,8 @@ const Editor: NextPage = () => {
     },
     display: 'flex', 
     width: '100%', 
-    justifyContent: 'space-evenly',
-    alignItems: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
   }));
 
 
@@ -64,9 +64,14 @@ const Editor: NextPage = () => {
           {videos.length > 0 &&
             <MainPreview video={videos[0]}/>
           }
-          <PaperContainer id='editor-bottom-row' style={{display: 'flex', width: '100%', justifyContent: 'space-evenly'}}>
-            <VideoSelectionList videos={videos}/>
-            <Timeline/>
+          <PaperContainer id='editor-bottom-row'>
+            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+              <h2>Video Clips</h2>
+              <VideoSelectionList videos={videos}/>
+            </div>
+            <div style={{width: '60%'}}>
+              <Timeline/>
+            </div>
           </PaperContainer>
         </main>
       </div>
