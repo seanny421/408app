@@ -46,7 +46,6 @@ export default function TimelineItem(props:Props){
           <div className="thumbnail-container" style={{}}>
             <img src={store.timelineImages[props.index]} style={{width: '200px'}}/>
           </div>
-          <h4>{props.video.id}</h4>
           <button onClick={() => store.removeFromTimeline(props.index)}>Remove</button>
 
         </div>
