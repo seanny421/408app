@@ -36,12 +36,15 @@ const Editor: NextPage = () => {
   }
 
   const PaperContainer = styled('div')(({ theme }) => ({
-    border: theme == lightTheme ? `2px solid ${theme.palette.primary.main}`: '',
+    // border: theme == lightTheme ? `2px solid ${theme.palette.primary.main}`: '',
     "*::-webkit-scrollbar-thumb":{
       backgroundColor: `${theme == lightTheme ? 'rgba(150, 153, 151, 1)': 'rgba(150, 153, 151, 0.1)'}`,
       borderRadius: 100,
     },
-    display: 'flex', width: '100%', justifyContent: 'space-evenly'
+    display: 'flex', 
+    width: '100%', 
+    justifyContent: 'space-evenly',
+    alignItems: 'center'
   }));
 
 

@@ -103,7 +103,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 
   return (
-    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '1rem', textAlign: 'center'}}>
+    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '3rem', textAlign: 'center'}}>
       {mainpreviewVideo != '' &&
         <video id="previewVideo" style={{padding: '1rem', width: '100%'}} controls src={mainpreviewVideo} />}
       {mainpreviewVideo == '' &&
