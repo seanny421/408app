@@ -31,9 +31,7 @@ export default function TimelineItem(props:Props){
       () => ({
         accept: 'Item',
         drop: (item:{indexFrom: number}) => {
-          // console.log(item)
           handleSwap(item.indexFrom)
-
         },
         collect: (monitor) => ({
           isOver: !!monitor.isOver(),
@@ -76,9 +74,7 @@ export default function TimelineItem(props:Props){
   }
 
   function createVideoUrl(){
-    // console.log(props.video.doc.bufferData)
     const buff = new Uint8Array(JSON.parse(props.video.doc.bufferData))
-    // console.log(buff)
     const url = String(URL.createObjectURL(new Blob([buff], {type: 'video/mp4'})))
     return url
   }
@@ -101,17 +97,12 @@ export default function TimelineItem(props:Props){
       ffmpeg.FS('writeFile', 'tempTrimFile.mp4', await fetchFile(new Blob([buff], {type: 'video/mp4'})))
       await ffmpeg.run('-i', 'tempTrimFile.mp4', '-ss', (cutFrom), '-t', (cutTo), '-y','-avoid_negative_ts','1','-acodec', 'copy', 'outputTrimFile.mp4')
       .then(() => {
-        console.log('trimVideo')
         const outputFile = ffmpeg.FS('readFile', 'outputTrimFile.mp4')
         props.video.doc.bufferData = JSON.stringify(Array.from(new Uint8Array(outputFile.buffer)))
         store.trimTimelineElement(props.index, outputFile.buffer)
       })
     }
 
-  }
-  function createVideoUrlTest(buffer:ArrayBuffer){
-    const url = String(URL.createObjectURL(new Blob([buffer], {type: 'video/mp4'})))
-    return url
   }
 
   return (
