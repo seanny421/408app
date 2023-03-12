@@ -1,5 +1,17 @@
 Most recent changes first
 ---------------------------------------------------------------------
+[12/03]
+
+- editor page functionality basically there 
+
+## TODO
+## [1] change titles for the pages so it's not just TermsInput etc, and add help buttons 
+## [2] allow multiple words to be searched for in termsinput page
+## [3] change breakpoints in captions page
+## [4] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)
+## [5] style url list responsively 
+
+---------------------------------------------------------------------
 [02/03]
 
 - reworked adding to download queue so user can choose what timestamp they want to download on the captions page
