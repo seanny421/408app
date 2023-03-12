@@ -15,7 +15,13 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   border: theme === lightTheme ? `2px solid ${theme.palette.primary.main}`: "",
   background: `${theme == darkTheme ? '' : '#fff'}`,
   color: `${theme == darkTheme ? '#fff' : '#000'}`,
-  width: '40%', height: '100%', padding: '0.5rem', maxHeight: 480/2, minHeight: 480/2, overflow: 'auto', overflowX: 'hidden'
+  width: '60%', 
+  height: '100%', 
+  padding: '0.5rem', 
+  maxHeight: 480/2, 
+  minHeight: 480/2, 
+  overflow: 'auto', 
+  overflowX: 'hidden'
 }));
 
 export default function VideoSelectionList(props:Props){

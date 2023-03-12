@@ -33,6 +33,7 @@ type Store = {
   addToTimeline: (item: CutVideoObject) => void;
   removeFromTimeline:(index:number) => void;
   swapTimelineElements:(indexFrom:number, indexTo:number) => void;
+  trimTimelineElement:(index:number, newBufferData: ArrayBuffer) => void;
   //timelineimages
   timelineImages: string[],
   addToTimelineImages: (url: string) => void;
@@ -83,6 +84,7 @@ const useStore = create<Store>()(
       addToTimeline: (item: CutVideoObject) => set((state) => ({timelineVideos: checkTimelineAndAdd(item, state.timelineVideos)})),
       removeFromTimeline:(index:number) => set((state) => ({timelineVideos: removeAtIndex(index, state.timelineVideos)})),
       swapTimelineElements:(indexFrom:number, indexTo:number) => set((state) => ({timelineVideos: swapElements(indexFrom, indexTo, state.timelineVideos)})),
+      trimTimelineElement:(index:number, newBufferData: ArrayBuffer) => set((state) => ({timelineVideos: replaceBufferData(state.timelineVideos, index, newBufferData)})),
       //timelineImages
       timelineImages: [],
       addToTimelineImages: (url: string) => set((state) => ({timelineImages: [...state.timelineImages, url]})),
@@ -90,6 +92,19 @@ const useStore = create<Store>()(
     }), {name: 'boolean-storage'})
   )
 )
+
+function replaceBufferData(timelineVideos: CutVideoObject[], index: number, newBufferData: ArrayBuffer):CutVideoObject[]{
+  const newArr = timelineVideos
+  console.log('from state')
+  console.log(newBufferData)
+  for(let i = 0; i < newArr.length; i++){
+    if(index === i){
+      const newBuffer = JSON.stringify(Array.from(new Uint8Array(newBufferData)))
+      newArr[i].doc.bufferData = newBuffer
+    }
+  }
+  return [...newArr]
+}
 
 function swapElements(indexFrom:number, indexTo: number, timelineVideos: CutVideoObject[]):CutVideoObject[]{
   let temp = timelineVideos[indexFrom]

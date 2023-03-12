@@ -14,7 +14,6 @@ export default function Timeline(){
 
   useEffect(() => {
     setTimelineVideos(store.timelineVideos)
-    console.log(store.timelineVideos)
   }, [store.timelineVideos])
 
   const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -22,13 +21,14 @@ export default function Timeline(){
     border: theme === lightTheme ? `2px solid ${theme.palette.primary.main}`: "",
     background: `${theme == darkTheme ? '' : '#fff'}`,
     // color: `${theme == darkTheme ? '#fff' : '#000'}`,
-    display: 'flex',alignItems: 'center', overflow: 'auto', overflowX: 'scroll', width: '80%'
+    display: 'flex',alignItems: 'center', overflow: 'auto', overflowX: 'scroll',
+    // padding: '1rem'
   }));
 
   return(
-    <section style={{width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+    <section>
     <h2>Timeline</h2>
-    <StyledPaper style={{display: 'flex',alignItems: 'center', overflow: 'auto', overflowX: 'scroll', width: '80%'}}>
+    <StyledPaper>
       <DndProvider backend={HTML5Backend}>
       {timelineVideos.map(function(video:CutVideoObject, i:number){
         return (

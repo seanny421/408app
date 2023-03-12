@@ -6,7 +6,7 @@ import { Button } from "@mui/material"
 import { styled } from "@mui/system"
 import { lightTheme, darkTheme } from "../../styles/themes"
 const ffmpeg = createFFmpeg({
-  log: true,
+  // log: true,
 })
 
 interface Props {
