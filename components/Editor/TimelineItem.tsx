@@ -89,7 +89,7 @@ export default function TimelineItem(props:Props){
 
   //trim our video based on cutFrom & cutTo state - set by user
   async function trimVideo(){
-    //check if we have a cutTo
+    //check if we have a cutTo, we don't need to worry about cutFrom as default is 0
     if(cutTo){
       const buff = new Uint8Array(JSON.parse(props.video.doc.bufferData))
       if(!ffmpeg.isLoaded())
@@ -124,7 +124,7 @@ export default function TimelineItem(props:Props){
             <video style={{width: '50%'}} controls src={createVideoUrl()}/>
             <div>
               <h4>Cut from (seconds) </h4>
-              <input onChange={(e) => handleCutState(e, 'cutFrom')} type="number" />
+              <input value={cutFrom} onChange={(e) => handleCutState(e, 'cutFrom')} type="number" />
               <h4>Cut to (seconds)</h4>
               <input onChange={(e) => handleCutState(e, 'cutTo')} type="number" />
             </div>

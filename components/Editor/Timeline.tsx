@@ -14,7 +14,6 @@ export default function Timeline(){
 
   useEffect(() => {
     setTimelineVideos(store.timelineVideos)
-    console.log(store.timelineVideos)
   }, [store.timelineVideos])
 
   const StyledPaper = styled(Paper)(({ theme }) => ({
