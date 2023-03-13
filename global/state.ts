@@ -2,6 +2,7 @@ import {Url} from 'url';
 import create from 'zustand'
 import {devtools, persist} from 'zustand/middleware';
 import { CutVideoObject, DownloadedClip, DownloadQueueItem, VideoObject } from './types';
+const LZString = require('lz-string')
 
 type Store = {
   isLight: boolean;
@@ -117,11 +118,12 @@ function removeAtIndex(index:number, timelineVideos:CutVideoObject[]):CutVideoOb
 }
 
 function checkTimelineAndAdd(item:CutVideoObject, timelineVideos:CutVideoObject[]){
+  const buffer = JSON.stringify(Array.from(new Uint8Array(item.doc.bufferData)))
   const newItem:CutVideoObject = {
     id: item.id,
     doc: {
       timestamp: item.doc.timestamp,
-      bufferData: JSON.stringify(Array.from(new Uint8Array(item.doc.bufferData)))
+      bufferData: LZString.compress(buffer) //use compression so we don't reach max limit on localStorage
     },
     key: item.key,
     value: item.value
