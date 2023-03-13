@@ -5,6 +5,7 @@ import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg"
 import { Button } from "@mui/material"
 import { styled } from "@mui/system"
 import { lightTheme, darkTheme } from "../../styles/themes"
+const LZString = require('lz-string')
 const ffmpeg = createFFmpeg({
   // log: true,
 })
@@ -40,7 +41,7 @@ export default function MainPreview(props:Props){
       await ffmpeg.load()
     store.resetImages()//reset in case we end up with duplicates
     for(let i = 0; i < store.timelineVideos.length; i++){
-      const buffer = new Uint8Array(JSON.parse(store.timelineVideos[i].doc.bufferData)).buffer
+      const buffer = new Uint8Array(JSON.parse( LZString.decompress(store.timelineVideos[i].doc.bufferData) )).buffer
       const vid = new Blob([buffer], {type: 'video/mp4'})
       try{
         const mainpreview = ffmpeg.FS('readFile', 'mainpreview.mp4')

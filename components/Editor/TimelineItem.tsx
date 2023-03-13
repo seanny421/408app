@@ -7,6 +7,7 @@ import { useTheme } from "@mui/system"
 import { Modal, Box, Button } from "@mui/material"
 import {ChangeEvent, useEffect, useState} from "react"
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg"
+const LZString = require('lz-string')
 const ffmpeg = createFFmpeg({
   // log: true,
 })
@@ -74,7 +75,7 @@ export default function TimelineItem(props:Props){
   }
 
   function createVideoUrl(){
-    const buff = new Uint8Array(JSON.parse(props.video.doc.bufferData))
+    const buff = new Uint8Array(JSON.parse(LZString.decompress(props.video.doc.bufferData)))
     const url = String(URL.createObjectURL(new Blob([buff], {type: 'video/mp4'})))
     return url
   }
