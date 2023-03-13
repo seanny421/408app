@@ -110,8 +110,8 @@ export default function TimelineItem(props:Props){
       <section style={{background: `${isOver ? theme.palette.primary.main : ''}`, opacity: `${isOver ? '0.3': '1'}`,  borderRight: '2px solid rgba(105, 105, 105, 0.1)', padding: '1rem'}}>
       <div ref={drag} style={{margin: '0.5rem', opacity: isDragging ? '0.5': '1'}}>
         <div ref={drop}>
-          <div className="thumbnail-container" style={{}}>
-            <img src={store.timelineImages[props.index]} style={{width: '200px'}}/>
+          <div className="thumbnail-container">
+            <img src={store.timelineImages[props.index]} style={{width: '200px', minHeight: '100px'}} alt={'timeline-thumbnail-image-' + props.index}/>
           </div>
           <StyledButton onClick={() => setTrimMenuOpen(true)}>Trim this clip</StyledButton>
           <StyledButton onClick={() => store.removeFromTimeline(props.index)}>Remove from edit</StyledButton>
