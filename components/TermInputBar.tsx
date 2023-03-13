@@ -16,10 +16,14 @@ export default function TermInputBar(props:Props){
   //optional parameter if user presses "enter" to submit form
   function addToTermsList(e?:FormEvent){
     e?.preventDefault()//prevent page reload
-    store.addToTermsList(termInput);
+    if(termInput.split(' ').length > 1 && termInput.split(' ')[1] != ''){
+      termInput.split(' ').forEach((term) => {
+        store.addToTermsList(term)
+      })
+    }
+    else 
+      store.addToTermsList(termInput);
     //report any errors to user
-
-
     //reset input
     setTermInput("");
   }
