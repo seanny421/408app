@@ -29,9 +29,7 @@ export default function CutVideoCard(props:CutVideoProps){
   }
 
   async function toggleSelected(){
-    console.log(selected)
     if(selected){
-      console.log('removing')
       removeFromDB('cutVideos', props.vid)
     }
     else if(!selected){
@@ -43,11 +41,6 @@ export default function CutVideoCard(props:CutVideoProps){
     setSelected(!selected)
   }
 
-  //FIXME - used for testing
-  useEffect(() => {
-    console.log(store.downloadedClips)
-  }, [store.downloadedClips])
-
   const Card = styled('div')(({ theme }) => ({
     position: 'relative',
     boxShadow: `0px 10px 17px -10px ${theme.palette.primary.main},0px 5px 20px 0px rgba(238,228,233,0.2)`,
@@ -57,7 +50,7 @@ export default function CutVideoCard(props:CutVideoProps){
     background: theme === lightTheme ? '#fff': '#000',
     color: theme === lightTheme ? '#000': '#fff',
     border: `2px solid ${theme.palette.primary.main}`,
-    width: '90%'
+    width: '50%'
   }));
 
   const DivUnderlinedThemed = styled('div')(({ theme }) => ({

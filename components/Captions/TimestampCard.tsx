@@ -51,7 +51,6 @@ export default function TimestampCard(props:Props){
   const store = useStore()
 
   useEffect(() => {
-    console.log(store.downloadQueue)
     checkDownloadQueue()
   }, [store.downloadQueue])
 

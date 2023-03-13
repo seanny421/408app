@@ -29,15 +29,17 @@ const TermsInput: NextPage = () => {
         </Head>
 
         <main className={styles.main}>
-          <SettingsMenu/>
-          <h2 className={styles.title}>TermsInput</h2>
-          <p>Please input any words/phrases you wish to search for</p>
-          <div className='input-container'>
-            <TermInputBar isLight={isLight}/>
-            <div className='button-container'>
+          <div className="main-content-container">
+            <SettingsMenu/>
+            <h2 className={styles.title}>Words to search for</h2>
+            <p>Please input any words you wish to search the captions for, separated by a space if you want to search for multiple</p>
+            <div className='input-container'>
+              <TermInputBar isLight={isLight}/>
+              <div className='button-container'>
+              </div>
             </div>
+            <TermList/>
           </div>
-          <TermList/>
         </main>
       </div>
     </ThemeProvider>

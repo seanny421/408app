@@ -95,8 +95,6 @@ const useStore = create<Store>()(
 
 function replaceBufferData(timelineVideos: CutVideoObject[], index: number, newBufferData: ArrayBuffer):CutVideoObject[]{
   const newArr = timelineVideos
-  console.log('from state')
-  console.log(newBufferData)
   for(let i = 0; i < newArr.length; i++){
     if(index === i){
       const newBuffer = JSON.stringify(Array.from(new Uint8Array(newBufferData)))
