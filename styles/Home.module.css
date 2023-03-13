@@ -12,6 +12,12 @@
   align-items: center;
 }
 
+.main-content-container{
+  display: flex;
+  align-items: center;
+  width: 70%;
+}
+
 .footer {
   display: flex;
   flex: 1;

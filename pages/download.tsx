@@ -34,7 +34,6 @@ const Download: NextPage = () => {
   }
 
   const callToApi = async(videourl:string, videoIndex:number, timestampData: TimestampObject[]) => {
-    console.log(videourl)
     const data = {videourl: videourl, timestampData: timestampData}
     await fetch('http://localhost:3000/api/download',
     {

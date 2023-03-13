@@ -5,7 +5,6 @@ import HelpIcon from '@mui/icons-material/Help';
 import HomeIcon from '@mui/icons-material/Home';
 import useStore  from '../global/state';
 import { CheckCircle, Cancel } from '@mui/icons-material';
-
 import Link from 'next/link';
 import {useState} from 'react';
 
@@ -97,7 +96,7 @@ const SettingsMenu: React.FunctionComponent = () => {
         <div>
           <h2>Welcome to Vashup</h2>
           <strong><p>Vashup is a tool to help you make parody & mashup videos, it allows you to perform caption search on any given youtube videos and allows you to edit the clips together</p></strong>
-          <p>You can add as many youtube urls that you want to search through</p>
+          <p>You can add as many youtube urls that you want to search through, <br/> copy and paste them into the search bar seperated by a space</p>
           <p>Once you think you're happy, click 'Next' to move on</p>
           <p>Your progress will automatically be saved as long as you don't clear cache for this site</p>
           <p>You can always come back and add more videos here</p>

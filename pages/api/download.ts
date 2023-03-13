@@ -28,7 +28,6 @@ export default function handler(
     vid.pipe(fs.createWriteStream('inputvideo.mp4'))
     .on('finish', () => {
       for(let i = 0; i < timestampData.length; i++){
-        console.log('cutting for ' + (timestampData[i]))
         const ffmpegProcess = cp.spawn(ffmpeg, [
           //APPROACH 2 - THIS WORKS BETTER FOR VIDEO
           '-i', `inputvideo.mp4`,
@@ -43,22 +42,20 @@ export default function handler(
         })
 
         ffmpegProcess.on('close', () => {
-          console.log('done cutting')
           response.push({
            video: fs.readFileSync('video' + i + '.mkv'),
            timestamp: timestampData[i]
           })
-          fs.unlink(('video' + i + '.mkv'), (err) => err != null ? console.log('wit ' + err) : console.log(''))
+          fs.unlink(('video' + i + '.mkv'), (err) => err != null ? console.log(err) : console.log(''))
           if(response.length === timestampData.length)
             res.status(200).json({ videoData: response})
-          // fs.unlink('inputvideo.mp4', (err) => console.log('wit ' + err))
         })
       }
 
     })
-    .on('close', () => {
-      console.log('NEVER IS LOGGED - SEAN LOOK HERE SEAN LOOK HERE!!!!! DONE')
-    })
+    // .on('close', () => {
+    //   console.log('NEVER IS LOGGED - SEAN LOOK HERE SEAN LOOK HERE!!!!! DONE')
+    // })
   }
   catch(e){
     console.log(e)

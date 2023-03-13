@@ -24,7 +24,6 @@ export async function addToDB(db_name: string, item:any):Promise<string>{
 //takes db_name & item (must be of type any as this is a generic function) as params 
 //removes item from db
 export async function removeFromDB(db_name: string, item: any){
-  console.log(item)
   const db = getDB(db_name)
   await db?.remove(item.id, item.rev)
   .catch((err) => console.log(err))

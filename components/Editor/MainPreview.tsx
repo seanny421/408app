@@ -36,7 +36,6 @@ export default function MainPreview(props:Props){
 
   //loop through all the timelinevideos and concat with ffmpeg
   async function updateMainPreview(){
-    console.log('updating mainpreview....')
     if(!ffmpeg.isLoaded())
       await ffmpeg.load()
     store.resetImages()//reset in case we end up with duplicates
@@ -61,6 +60,7 @@ export default function MainPreview(props:Props){
     updateVideo()
   }
 
+  //create thumbnail for timeline item, takes the video Blob object and uses ffmpeg to create jpg image
   async function createTimelineImage(vid:Blob){
     if(!ffmpeg.isLoaded())
       await ffmpeg.load()
@@ -72,7 +72,6 @@ export default function MainPreview(props:Props){
       store.addToTimelineImages(url)
     } catch(err){
       console.log(err)
-
     }
   }
 
