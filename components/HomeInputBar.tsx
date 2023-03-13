@@ -14,16 +14,15 @@ export default function HomeInputBar(props:Props){
   const [inputBarText, setInputBarText] = useState<string>("");
 
   function addToUrlList(){
-    // store.addToUrlList(inputBarText);
-
+    //if user has input more than one url
+    if(inputBarText.split(' ').length > 1){
+      inputBarText.split(' ').forEach((url) => {
+        getVidInformation(url)
+      })
+    }
     //get videoinformation
-    getVidInformation(inputBarText);  
-
-    //add to urllist if response is ok
-
-    //report any errors to user
-
-
+    else
+      getVidInformation(inputBarText);  
     //reset input
     setInputBarText("");
   }

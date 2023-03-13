@@ -1,5 +1,16 @@
 Most recent changes first
 ---------------------------------------------------------------------
+[13/03]
+
+- allowed multiple terms to be searched for (split by ' ')
+
+## TODO
+## [1] change titles for the pages so it's not just TermsInput etc, and add help buttons 
+## [2] change breakpoints in captions page
+## [3] adjust margins so things line up nicely (i.e. like plus btn on input and nextpage btn)
+## [4] style url list responsively 
+
+---------------------------------------------------------------------
 [12/03]
 
 - editor page functionality basically there 
