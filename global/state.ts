@@ -82,7 +82,7 @@ const useStore = create<Store>()(
 
       //editor
       timelineVideos: [],
-      addToTimeline: (item: CutVideoObject) => set((state) => ({timelineVideos: checkTimelineAndAdd(item, state.timelineVideos)})),
+      addToTimeline: (item: CutVideoObject) => set((state) => ({timelineVideos: addNewItemToTimeline(item, state.timelineVideos)})),
       removeFromTimeline:(index:number) => set((state) => ({timelineVideos: removeAtIndex(index, state.timelineVideos)})),
       swapTimelineElements:(indexFrom:number, indexTo:number) => set((state) => ({timelineVideos: swapElements(indexFrom, indexTo, state.timelineVideos)})),
       trimTimelineElement:(index:number, newBufferData: ArrayBuffer) => set((state) => ({timelineVideos: replaceBufferData(state.timelineVideos, index, newBufferData)})),
@@ -117,7 +117,7 @@ function removeAtIndex(index:number, timelineVideos:CutVideoObject[]):CutVideoOb
   return [...timelineVideos]
 }
 
-function checkTimelineAndAdd(item:CutVideoObject, timelineVideos:CutVideoObject[]){
+function addNewItemToTimeline(item:CutVideoObject, timelineVideos:CutVideoObject[]){
   const buffer = JSON.stringify(Array.from(new Uint8Array(item.doc.bufferData)))
   const newItem:CutVideoObject = {
     id: item.id,
