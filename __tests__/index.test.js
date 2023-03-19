@@ -1,6 +1,7 @@
 //https://fek.io/blog/add-jest-testing-framework-to-an-existing-next-js-app
 import { render, screen, fireEvent } from '@testing-library/react';
 import Home from '../pages/index';
+import Captions from '../pages/captions';
 import TermsInput from '../pages/termsinput';
 import React from 'react';
 import '@testing-library/jest-dom';
@@ -51,14 +52,14 @@ describe('TermsInput', () => {
   it('renders a heading', () => {
     render(<TermsInput/>)
     const heading = screen.getByRole('heading', {
-      name: /TermsInput/i,
+      name: /Words to search for/i,
     })
     expect(heading).toBeInTheDocument()
   })
 
   it('renders the user instructions', () => {
     render(<TermsInput/>)
-    const paragraph = screen.getByText('Please input any words/phrases you wish to search for')
+    const paragraph = screen.getByText('Please input any words you wish to search the captions for, separated by a space if you want to search for multiple')
     expect(paragraph).toBeInTheDocument()
   })
 
@@ -77,13 +78,13 @@ describe('TermsInput', () => {
     const inputBar = screen.getByRole('textbox')
     const btn = screen.getByTestId('addbtn')
     //test functionality of add btn
-    fireEvent.change(inputBar, {target: {value: 'sample user input'} })
-    expect(inputBar).toHaveValue('sample user input')
+    fireEvent.change(inputBar, {target: {value: 'sample'} })
+    expect(inputBar).toHaveValue('sample')
     fireEvent(btn, new MouseEvent('click', {
       bubbles: true,
       cancelable: true, 
     }))
-    const bubble = screen.getByText('sample user input')
+    const bubble = screen.getByText('sample')
     //make sure input is displayed to user and inputbar is reinitialised
     expect(bubble).toBeInTheDocument()
     expect(inputBar).toHaveValue('')
@@ -96,7 +97,7 @@ describe('TermsInput', () => {
   it('removes items correctly from list', () => {
     render(<TermsInput/>)
     //make sure we have card to remove
-    const bubble = screen.getByText('sample user input')
+    const bubble = screen.getByText('sample')
     expect(bubble).toBeInTheDocument()
     //test functionality of remove btn  
     const removeBtn = screen.getByTestId('remove-btn-0')
@@ -112,4 +113,15 @@ describe('TermsInput', () => {
     const nextPageBtnContainer = screen.getByTestId('nextpage-btn-container')
     expect(nextPageBtnContainer).not.toBeVisible()
   })
+})
+
+describe('CaptionsPage', () => {
+  it('renders a heading', () => {
+    render(<Captions/>)
+    const heading = screen.getByRole('heading', {
+      name: /Captions/i,
+    })
+    expect(heading).toBeInTheDocument()
+  })
+
 })
