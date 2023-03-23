@@ -52,8 +52,8 @@ export default function TermList(){
         {localList?.map(function(term, i){
           return(
             <Card className="" key={i}>
-              <CancelIcon data-testid={`remove-btn-`+i} onClick={() => store.removeFromTermsList(term)} sx={removeBtnStyle(store.isLight)}/>
-              <h3 className="">{term}</h3>
+              <CancelIcon className="remove-term-btn" data-testid={`remove-btn-`+i} onClick={() => store.removeFromTermsList(term)} sx={removeBtnStyle(store.isLight)}/>
+              <h3 className="term-heading">{term}</h3>
             </Card>
           );
         })}

@@ -58,7 +58,7 @@ export default function URL_List(){
       {localList?.map(function(videoObj, i){
         return(
           <Card className="url-list-" key={i}>
-            <h3 className="url-link"><a href={videoObj.url} target="_blank" rel="noreferrer">{videoObj.videoInfo.snippet.title}</a></h3>
+            <h3 className="url-link"><a data-testid="url-list-link" href={videoObj.url} target="_blank" rel="noreferrer">{videoObj.videoInfo.snippet.title}</a></h3>
             <CancelIcon onClick={() => store.removeFromUrlList(videoObj)} sx={removeBtnStyle(store.isLight)}/>
             <div id="flex-container" style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
               <div style={{width: '50%'}}>
