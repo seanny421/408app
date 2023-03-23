@@ -92,10 +92,10 @@ export default function TimelineItem(props:Props){
   async function trimVideo(){
     //check if we have a cutTo, we don't need to worry about cutFrom as default is 0
     if(cutTo){
-      const buff = new Uint8Array(JSON.parse(props.video.doc.bufferData))
+      const array = new Uint8Array(JSON.parse(LZString.decompress(props.video.doc.bufferData)))
       if(!ffmpeg.isLoaded())
         await ffmpeg.load()
-      ffmpeg.FS('writeFile', 'tempTrimFile.mp4', await fetchFile(new Blob([buff], {type: 'video/mp4'})))
+      ffmpeg.FS('writeFile', 'tempTrimFile.mp4', await fetchFile(new Blob([array.buffer], {type: 'video/mp4'})))
       await ffmpeg.run('-i', 'tempTrimFile.mp4', '-ss', (cutFrom), '-t', (cutTo), '-y','-avoid_negative_ts','1','-acodec', 'copy', 'outputTrimFile.mp4')
       .then(() => {
         const outputFile = ffmpeg.FS('readFile', 'outputTrimFile.mp4')

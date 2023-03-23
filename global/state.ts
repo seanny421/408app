@@ -99,7 +99,7 @@ function replaceBufferData(timelineVideos: CutVideoObject[], index: number, newB
   for(let i = 0; i < newArr.length; i++){
     if(index === i){
       const newBuffer = JSON.stringify(Array.from(new Uint8Array(newBufferData)))
-      newArr[i].doc.bufferData = newBuffer
+      newArr[i].doc.bufferData = LZString.compress(newBuffer)
     }
   }
   return [...newArr]
