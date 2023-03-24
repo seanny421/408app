@@ -1,9 +1,9 @@
-import { Input, InputAdornment, Button } from "@mui/material"
 import AddIcon from '@mui/icons-material/Add';
-import useStore from "../global/state";
-import { lightTheme } from '../styles/themes'
+import { Button, Input, InputAdornment } from "@mui/material";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import useStore from "../global/state";
+import { lightTheme } from '../styles/themes';
 
 interface Props { 
   isLight: boolean
@@ -45,6 +45,8 @@ export default function HomeInputBar(props:Props){
 
   async function getVidInformation(urlInput:string){
     const vidId = youtube_parser(urlInput);
+    if(vidId === 'false')
+      return
     const captions = await getCaptionForId((vidId as string));
     const url = 'https://www.googleapis.com/youtube/v3/videos?id=' + vidId + '&key=' + process.env.NEXT_PUBLIC_API_KEY + '&part=snippet';  
     const res = await fetch(url)

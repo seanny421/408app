@@ -1,12 +1,14 @@
-import { Box, Switch, Modal, FormControlLabel } from '@mui/material/';
-import { darkTheme, lightTheme } from "../styles/themes";
-import SettingsIcon from '@mui/icons-material/Settings';
+import { useTheme } from "@emotion/react";
+import { Cancel, CheckCircle } from '@mui/icons-material';
+import CancelIcon from '@mui/icons-material/Cancel';
 import HelpIcon from '@mui/icons-material/Help';
 import HomeIcon from '@mui/icons-material/Home';
-import useStore  from '../global/state';
-import { CheckCircle, Cancel } from '@mui/icons-material';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { Box, FormControlLabel, Modal, Switch } from '@mui/material/';
 import Link from 'next/link';
-import {useState} from 'react';
+import { useState } from 'react';
+import useStore from '../global/state';
+import { darkTheme, lightTheme } from "../styles/themes";
 
 const style = (isLight: boolean) => ({
   position: 'absolute' as 'absolute',
@@ -38,6 +40,7 @@ const SettingsMenu: React.FunctionComponent = () => {
   const store = useStore(); //global state
   const handleClose = () => store.toggleSettings();
   const [helpShown, setHelpShown] = useState<boolean>(false)
+  const theme = useTheme();
 
   function handleHelpToggle(){
     setHelpShown(!helpShown)
@@ -119,6 +122,7 @@ const SettingsMenu: React.FunctionComponent = () => {
       </Modal>
       <Modal onClose={() => setHelpShown(false)} open={helpShown}>
         <Box sx={helpStyles(store.isLight)}>
+          <CancelIcon onClick={() => setHelpShown(false)} sx={{color: theme.palette.primary.main}}/>
           <ConditionalHelpRender/>
         </Box>
       </Modal>

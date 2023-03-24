@@ -58,7 +58,7 @@ export default function TermList(){
           );
         })}
       </div>
-      <div data-testid="nextpage-btn-container" style={{display: `${localList?.length > 0 ? 'flex': 'none'}`, justifyContent: 'flex-end', position: 'absolute', right: 70, bottom: 50}}>
+      <div data-testid="nextpage-btn-container" style={{display: `${localList?.length > 0 ? 'flex': 'none'}`, justifyContent: 'flex-end'}}>
         <Button href="/captions" variant="contained" className="primary-btn">Next</Button>
       </div>
     </section>

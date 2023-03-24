@@ -1,5 +1,5 @@
-import Image from "next/image"
-import {FC} from 'react';
+import Image from "next/image";
+import { FC } from 'react';
 
 interface IProps {
   imageURL: string
@@ -16,6 +16,7 @@ const Thumbnail: FC<IProps> = ({imageURL}: IProps) => {
         height={480/2}
         priority
         objectFit="cover"
+        layout="responsive"
         />
     </div>
   )
