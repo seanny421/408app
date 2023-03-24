@@ -1,10 +1,10 @@
-import {useEffect, useState} from "react"
-import {CutVideoObject} from "../../global/types"
-import useStore from "../../global/state"
-import { styled } from "@mui/system"
-import { darkTheme } from "../../styles/themes"
 import { useTheme } from "@emotion/react"
+import { styled } from "@mui/system"
 import Image from "next/image"
+import { useEffect, useState } from "react"
+import useStore from "../../global/state"
+import { CutVideoObject } from "../../global/types"
+import { darkTheme } from "../../styles/themes"
 
 interface Props{
   video:CutVideoObject,
@@ -39,7 +39,7 @@ export default function VideoSelectionItem(props:Props){
   return (
     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', borderBottom: `${theme === darkTheme ? '2px solid rgba(105, 105, 105, 0.1)': '2px solid rgba(105, 105, 105, 0.5)'}`}}>
       <video width='70%' controls src={createVidUrl(props.video.doc.bufferData)}/>
-      <StyledButton onClick={addToTimeline}>Add to timeline</StyledButton>
+      <StyledButton data-testid="add-to-timeline-btn" onClick={addToTimeline}>Add to timeline</StyledButton>
     </div>
   )
 }

@@ -60,4 +60,5 @@ describe('functional requirements test', () => {
     cy.visit('http://localhost:3000/download')
     cy.get('[data-testid=CancelIcon]', {timeout: 80000})//check to see if we have downloaded clips rendered
   })
+
 })
