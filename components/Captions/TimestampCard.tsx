@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { styled } from "@mui/system"
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import {useState, useEffect} from "react";
-import {TimestampObject, DownloadQueueItem} from "../../global/types";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { styled } from "@mui/system";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import useStore from "../../global/state";
+import { DownloadQueueItem, TimestampObject } from "../../global/types";
 
 const TimestampList = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -114,11 +114,11 @@ export default function TimestampCard(props:Props){
     <CustomSection>
       {isInQueue &&
         <div style={{display: 'flex', alignItems: 'center'}}>
-          <CheckCircleIcon style={{color: 'green'}} className="hover-cursor" onClick={toggleInQueue}/>
+          <CheckCircleIcon data-testid="CheckCircleIcon" style={{color: 'green'}} className="hover-cursor" onClick={toggleInQueue}/>
         </div>
       }
       {!isInQueue &&
-        <CancelIcon style={{color: 'red'}} onClick={toggleInQueue}/> 
+        <CancelIcon data-testid="CancelIcon" className="hover-cursor" style={{color: 'red'}} onClick={toggleInQueue}/> 
       }
       <Link href={getTimestampUrl(props.url, props.timestamp)} className="link" passHref style={{width: '80%'}}>
         <a target="blank" rel="noopener noreferrer">

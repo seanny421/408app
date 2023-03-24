@@ -32,7 +32,7 @@ const removeBtnStyle = (isLight: boolean) => ({
 export default function URL_List(){
   const store = useStore(); 
   const [localList, setLocalList] = useState<VideoObject[]>();
-  const [innerWidth, setInnerWidth] = useState<number>();
+  const [innerWidth, setInnerWidth] = useState<number>(1000);//just initial value, this will be updated on component load
 
   //runs every time store.urlList is changed 
   useEffect(() => {
@@ -73,7 +73,7 @@ export default function URL_List(){
         return(
           <Card className="url-list-card" key={i}>
             <h3 className="url-link"><a data-testid="url-list-link" href={videoObj.url} target="_blank" rel="noreferrer">{videoObj.videoInfo.snippet.title}</a></h3>
-            <CancelIcon onClick={() => store.removeFromUrlList(videoObj)} sx={removeBtnStyle(store.isLight)}/>
+            <CancelIcon data-testid='remove-btn' onClick={() => store.removeFromUrlList(videoObj)} sx={removeBtnStyle(store.isLight)}/>
             <div id="flex-container" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap'}}>
               <div className="home-page-thumbnail-container" style={{}}>
                 <Thumbnail imageURL={getImageURL(videoObj)}/>
