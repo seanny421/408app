@@ -32,7 +32,7 @@ export default function handler(
           //APPROACH 2 - THIS WORKS BETTER FOR VIDEO
           '-i', `inputvideo.mp4`,
           '-ss', (String(timestampData[i].start - 1)), '-map_chapters', '-1', 
-          '-c:v', 'libx264', '-c:a', 'copy', '-crf', '18', '-t', (String(timestampData[i].duration + 1)),  ('video' + i + '.mkv')
+          '-c:v', 'libx264', '-c:a', 'copy', '-crf', '12', '-t', (String(timestampData[i].duration + 1)),  ('video' + i + '.mkv')
         ], {
           windowsHide: true,
           stdio: [
@@ -53,9 +53,6 @@ export default function handler(
       }
 
     })
-    // .on('close', () => {
-    //   console.log('NEVER IS LOGGED - SEAN LOOK HERE SEAN LOOK HERE!!!!! DONE')
-    // })
   }
   catch(e){
     console.log(e)
