@@ -47,7 +47,7 @@ export default function MatchList(){
       for(let j = 0; j < terms.length; j++){
         for(let i = 0; i < video.captions?.length; i++){
           //if current term is in the video captions then add to matches dictionary
-          if(video.captions[i].text.replace(',', "").toUpperCase().split(' ').includes(terms[j].toUpperCase())){//this could be more advanced
+          if(video.captions[i].text.replace(/[,!?#%]/g, "").toUpperCase().split(' ').includes(terms[j].toUpperCase())){//this could be more advanced
             addToMatchDict(video.captions[i], terms[j], videoPos)
           }
         }
