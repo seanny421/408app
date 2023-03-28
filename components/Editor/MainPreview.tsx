@@ -46,9 +46,12 @@ export default function MainPreview(props:Props){
       try{
         const mainpreview = ffmpeg.FS('readFile', 'mainpreview.mp4')
         ffmpeg.FS('writeFile', 'tempVid.mp4', await fetchFile(vid))
-        await ffmpeg.run('-i', 'mainpreview.mp4', '-vcodec', 'copy', '-vbsf', 'h264_mp4toannexb', '-acodec', 'copy', 'part1.ts')
-        await ffmpeg.run('-i', 'tempVid.mp4', '-vcodec', 'copy', '-vbsf', 'h264_mp4toannexb', '-acodec', 'copy', 'part2.ts')
-        await ffmpeg.run('-i', 'concat:part1.ts|part2.ts', '-codec', 'copy', 'output.mkv')
+        await ffmpeg.run('-i', 'mainpreview.mp4', '-vcodec', 'copy', '-vbsf',
+                        'h264_mp4toannexb', '-acodec', 'copy', 'part1.ts')
+        await ffmpeg.run('-i', 'tempVid.mp4', '-vcodec', 'copy', '-vbsf', 
+                        'h264_mp4toannexb', '-acodec', 'copy', 'part2.ts')
+        await ffmpeg.run('-i', 'concat:part1.ts|part2.ts', '-codec', 'copy', 
+                        'output.mkv')
         const output = ffmpeg.FS('readFile', 'output.mkv')
         ffmpeg.FS('writeFile', 'mainpreview.mp4', output)
 

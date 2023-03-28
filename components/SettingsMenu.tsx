@@ -109,11 +109,11 @@ const SettingsMenu: React.FunctionComponent = () => {
   }
 
   return(
-    <section id='settingsmenu' className='settingsmenu'>
+    <section id='settingsmenu' data-testid="settingsmenu" className='settingsmenu'>
       <div style={{display: 'flex', flexDirection: 'column'}}>
         <Link href="/"><HomeIcon style={{cursor: 'pointer', margin: '10px'}}/></Link>
-        <HelpIcon onClick={handleHelpToggle} style={{marginBottom: '10px', cursor: 'pointer', marginInline: '10px', opacity: 0.3}}/>
-        <SettingsIcon onClick={store.toggleSettings} style={{cursor: 'pointer', marginInline: '10px', opacity: store.shown ? 1.0 : 0.3}}/>
+        <HelpIcon data-testid="helpicon" onClick={handleHelpToggle} style={{marginBottom: '10px', cursor: 'pointer', marginInline: '10px', opacity: 0.3}}/>
+        <SettingsIcon data-testid="settingsicon" onClick={store.toggleSettings} style={{cursor: 'pointer', marginInline: '10px', opacity: store.shown ? 1.0 : 0.3}}/>
       </div>
       <Modal onClose={handleClose} open={store.shown}>
         <Box sx={style(store.isLight)}>

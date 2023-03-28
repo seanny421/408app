@@ -141,7 +141,6 @@ a {
 
 .home-page-thumbnail-container {
   width: 100%;
-  border: 2px solid red;
 }
 
 @keyframes rotate {
