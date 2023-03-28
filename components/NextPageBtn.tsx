@@ -1,6 +1,6 @@
 import { Button } from "@mui/material"
+import { useEffect, useState } from "react"
 import useStore from "../global/state"
-import { useState, useEffect } from "react"
 
 interface Props {
   url:string
@@ -20,7 +20,7 @@ export default function NextPageBtn(props:Props){
   }, [store.urlList]);
 
     return(
-      <div style={{display: `${display}`, justifyContent: 'flex-end'}}>
+      <div style={{display: `${display}`, justifyContent: 'flex-end', marginTop: '3rem'}}>
         <Button href={props.url} variant="contained" className="primary-btn">Next</Button>
       </div>
     )

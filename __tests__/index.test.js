@@ -32,5 +32,22 @@ describe('Home', () => {
     fireEvent.change(input, {target: {value: 'https://www.youtube.com/watch?v=V8sZY5idx8c&ab_channel=TheoBaker'} })
     expect(input).toHaveValue('https://www.youtube.com/watch?v=V8sZY5idx8c&ab_channel=TheoBaker')
   })
+
+  it('renders the nav section (home/settings/help)', () => {
+    render(<Home/>)
+    const navsection = screen.getByTestId('settingsmenu')
+    expect(navsection).toBeInTheDocument()
+  })
+
+  it('should display correct help info', () => {
+    render(<Home/>)
+    const helpicon = screen.getByTestId('helpicon')
+    fireEvent(helpicon, new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true, 
+    }))
+    const helpSection = screen.getByText('Welcome to Vashup')//if this is in document, then we have displayed the correct help menu
+    expect(helpSection).toBeInTheDocument()
+  })
 })
 

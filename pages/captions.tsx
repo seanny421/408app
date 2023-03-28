@@ -1,12 +1,12 @@
+import { Button, CssBaseline, ThemeProvider } from '@mui/material'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import useStore from '../global/state'
-import {useEffect, useState} from 'react'
-import { ThemeProvider, CssBaseline, Button } from '@mui/material'
-import {darkTheme, lightTheme} from '../styles/themes'
-import SettingsMenu from '../components/SettingsMenu'
+import { useEffect, useState } from 'react'
 import MatchList from '../components/MatchList'
+import SettingsMenu from '../components/SettingsMenu'
+import useStore from '../global/state'
+import styles from '../styles/Home.module.css'
+import { darkTheme, lightTheme } from '../styles/themes'
 
 const Captions: NextPage = () => {
   const store = useStore();
@@ -30,7 +30,7 @@ const Captions: NextPage = () => {
 
         <main className={styles.main}>
           <SettingsMenu/>
-          <h2 className={styles.title}>Captions</h2>
+          <h2 className={styles.title} style={{marginBottom:'4rem'}}>Captions</h2>
           <MatchList/>
         </main>
       </div>

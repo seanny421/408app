@@ -47,7 +47,8 @@ export default function MatchList(){
       for(let j = 0; j < terms.length; j++){
         for(let i = 0; i < video.captions?.length; i++){
           //if current term is in the video captions then add to matches dictionary
-          if(video.captions[i].text.includes(terms[j])){
+          if(video.captions[i].text.includes(terms[j])){//this could be more advanced
+            console.log(video.captions[i].text.split(' '))// something
             addToMatchDict(video.captions[i], terms[j], videoPos)
           }
         }

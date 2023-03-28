@@ -22,11 +22,26 @@ describe('CaptionsPage', () => {
       .mockImplementationOnce(initState => [initState, setState])
   })
 
-  //test caption matching functionality
-  //we need to render multiple pages here to test this
-  // it('matches captions correctly', () => {
-  //   const {get}
+  it('renders the nav section (home/settings/help)', () => {
+    render(<Captions/>)
+    const navsection = screen.getByTestId('settingsmenu')
+    expect(navsection).toBeInTheDocument()
+  })
 
-  // })
+  it('should display correct help info', () => {
+    render(<Captions/>)
+    Object.defineProperty(window, "location", { //simulate the window location
+      value: new URL("http://localhost:3000/captions"),
+        configurable: true,
+      });
+    const helpicon = screen.getByTestId('helpicon')
+    fireEvent(helpicon, new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true, 
+    }))
+    const helpSection = screen.getByText('Your Search Results')//if this is in document, then we have displayed the correct help menu
+    expect(helpSection).toBeInTheDocument()
+  })
+
 })
 
