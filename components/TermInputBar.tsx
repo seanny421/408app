@@ -2,7 +2,7 @@ import { Input, InputAdornment, Button } from "@mui/material"
 import AddIcon from '@mui/icons-material/Add';
 import useStore from "../global/state";
 import { lightTheme } from '../styles/themes'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormEvent } from "react";
 
 interface Props {
@@ -27,11 +27,6 @@ export default function TermInputBar(props:Props){
     //reset input
     setTermInput("");
   }
-
-  useEffect(() => {
-    console.log(store.termsList);
-  }, [store.termsList])
-
 
   return (
       <form onSubmit={(e) => addToTermsList(e)} className='input-bar-container'>

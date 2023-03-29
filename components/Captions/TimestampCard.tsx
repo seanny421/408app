@@ -10,7 +10,6 @@ const TimestampList = styled('div')(({ theme }) => ({
   display: 'flex',
   padding: '1rem',
   justifyContent: 'center',
-  // borderBottom: `1px solid ${theme.palette.primary.main}`
 }));
 
 interface Props {
@@ -47,7 +46,7 @@ const CustomSection = styled('section')(({ theme }) => ({
 }));
 
 export default function TimestampCard(props:Props){
-  const [isInQueue, setIsInQueue] = useState<boolean>(false);
+  const [isInQueue, setIsInQueue] = useState<boolean>(false);//is our timestamp clip already in queue
   const store = useStore()
 
   useEffect(() => {
@@ -58,11 +57,13 @@ export default function TimestampCard(props:Props){
     checkDownloadQueue()
   }, [])
 
+  //checking our download queue to see if we already have clip in queue
   function checkDownloadQueue(){
     const queueItem = createQueueItem()
     setIsInQueue(downloadQueueContains(queueItem))
   }
 
+  //toggles if our clip is in the download queue
   function toggleInQueue(){
     if(isInQueue)
       removeFromDownloadQueue()
@@ -82,6 +83,7 @@ export default function TimestampCard(props:Props){
     store.removeFromDownloadQueue(queueItem)
   }
 
+  //helper function, creates appropriate object to be used
   function createQueueItem():DownloadQueueItem{
     return {
       url:props.url,

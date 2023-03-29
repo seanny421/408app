@@ -28,12 +28,13 @@ const Download: NextPage = () => {
 
   const downloadVids = async() => {
     for(let i = 0; i < store.downloadQueue.length; i++){
-      await callToApi(store.downloadQueue[i].url, i, store.downloadQueue[i].timestampData)
+      await callToApi(store.downloadQueue[i].url, store.downloadQueue[i].timestampData)
     }
     setAreVidsDownloaded(true)
   }
 
-  const callToApi = async(videourl:string, videoIndex:number, timestampData: TimestampObject[]) => {
+  //call our server to download each video and cut it up using the timestampdata
+  const callToApi = async(videourl:string, timestampData: TimestampObject[]) => {
     const data = {videourl: videourl, timestampData: timestampData}
     await fetch('http://localhost:3000/api/download',
     {
@@ -46,7 +47,6 @@ const Download: NextPage = () => {
         const rawData = new Uint8Array(data.videoData[i].video.data)
         const downloadedObject = {timestamp: data.videoData[i].timestamp, bufferData: rawData.buffer}
         setDownloadedVids((downloadedVids) => [...downloadedVids, downloadedObject])
-        // store.addToDownloadedClips(downloadedObject)
       }
     })
   }

@@ -20,15 +20,11 @@ interface Props {
 export default function TimelineItem(props:Props){
   const store = useStore()
   const theme = useTheme()
-  const [trimMenuOpen, setTrimMenuOpen] = useState<boolean>(false)
+  const [trimMenuOpen, setTrimMenuOpen] = useState<boolean>(false)//is the trim menu open
   const [cutFrom, setCutFrom] = useState<string>('0') //default here is going to be 0
   const [cutTo, setCutTo] = useState<string>()
 
-  useEffect(() => {
-    console.log('TimlineItem.tsx has bufferData as string')
-  }, [])
-
-  const [{ isOver, canDrop }, drop] = useDrop(
+  const [{ isOver, canDrop }, drop] = useDrop(//implementation for dropping timeline items
       () => ({
         accept: 'Item',
         drop: (item:{indexFrom: number}) => {
@@ -41,7 +37,7 @@ export default function TimelineItem(props:Props){
       }),
       [],
     )
-  const [{ isDragging }, drag] = useDrag(
+  const [{ isDragging }, drag] = useDrag(//implementation for dragging timeline items
       () => ({
         type: 'Item',
         item: {indexFrom: props.index},
@@ -74,6 +70,7 @@ export default function TimelineItem(props:Props){
     setTrimMenuOpen(false)
   }
 
+  //create url for video tag
   function createVideoUrl(){
     const buff = new Uint8Array(JSON.parse(LZString.decompress(props.video.doc.bufferData)))
     const url = String(URL.createObjectURL(new Blob([buff], {type: 'video/mp4'})))

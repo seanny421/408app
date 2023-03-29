@@ -18,6 +18,7 @@ export default function VideoSelectionItem(props:Props){
     store.addToTimeline(props.video)
   }
 
+  //create url for video tag, should really put this in a global file
   function createVidUrl(buffer:ArrayBuffer){
     return String(URL.createObjectURL(new Blob([buffer], {type: 'video/mp4'})))
   }

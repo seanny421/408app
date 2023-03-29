@@ -29,9 +29,6 @@ const Card = styled('div')(({ theme }) => ({
 
 const removeBtnStyle = (isLight: boolean) => ({
   fontSize: 20, 
-  // position: 'absolute', 
-  // top: '10px', 
-  // right: '5px', 
   color: (isLight) ? `${lightTheme.palette.primary.main}` : `${darkTheme.palette.primary.main}`,
   cursor: 'pointer',
   marginRight: '0.5rem',

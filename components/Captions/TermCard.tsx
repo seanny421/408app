@@ -51,8 +51,10 @@ interface Props {
 
 export default function TermCard(props:Props){
   const store = useStore();
+  //used for dropdown
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  //calculate how many matches we have found for this term
   function calculateMatchCount(timestampslist:object):number{
     let total = 0;
     for(let i = 0; i < store.urlList.length; i++){

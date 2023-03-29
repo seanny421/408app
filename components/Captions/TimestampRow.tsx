@@ -17,8 +17,6 @@ const CaptionListRowContainer = styled('div', {shouldForwardProp:(prop) => prop 
   alignItems: 'center',
   position: 'relative',
   marginTop: '1rem',
-  // borderBottom: !lastItem ? `2px solid ${theme.palette.primary.main}` : 'none',
-  // paddingBottom: !lastItem ? '1.5rem' : '',
 }));
 
 const PaperContainer = styled('div')(({ theme }) => ({
@@ -39,12 +37,6 @@ interface Props {
 }
 
 export default function TimestampRow(props:Props){
-  //generate a url that will autoplay vid at given time
-  function getTimestampUrl(url:string, time:number){
-    //typical url is https://youtube.com/watch?v=VIDEOID&ab_channel=CHANNELNAME 
-    return "https://youtu.be/" + (url.split('?v=')[1].split('&')[0]) + '?t=' + time.toFixed(0);
-  }
-
   return(
       <CaptionListRowContainer lastItem={props.lastItem} isMobile={window.innerWidth < 800}>
         <div className="image-wrapper" style={{width: 400, height: 200}}>

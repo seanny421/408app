@@ -19,6 +19,7 @@ export default function CutVideoCard(props:CutVideoProps){
     setAppropriateSelected()
   }, [])
 
+  //check if we already have clip in db
   async function setAppropriateSelected(){
     const res = await cutVideodDBContains(props.vid)
     if(res.result){
@@ -28,11 +29,12 @@ export default function CutVideoCard(props:CutVideoProps){
     setSelected(res.result)
   }
 
+  //handles user selection
   async function toggleSelected(){
     if(selected){
       removeFromDB('cutVideos', props.vid)
     }
-    else if(!selected){
+    else if(!selected){//if we don't have clip in db
       const res = await addToDB('cutVideos', props.vid)
       props.vid.id = res.split('`')[0];
       props.vid.rev = res.split('`')[1];
@@ -60,7 +62,7 @@ export default function CutVideoCard(props:CutVideoProps){
     marginBottom: '1rem',
   }));
 
-  function createVideoUrl(buffer:ArrayBuffer){
+  function createVideoUrl(buffer:ArrayBuffer){//create our url for video tag
     return String(URL.createObjectURL(new Blob([buffer], {type: 'video/mp4'})))
   }
 
@@ -83,7 +85,6 @@ export default function CutVideoCard(props:CutVideoProps){
             </div>
           </DivUnderlinedThemed>
         }
-
         </div>
         <video style={{padding: '1rem', width: '100%'}} controls src={createVideoUrl(props.vid.bufferData)} />
       </Card>
