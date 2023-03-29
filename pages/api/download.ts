@@ -53,9 +53,6 @@ export default function handler(
       }
 
     })
-    // .on('close', () => {
-    //   console.log('NEVER IS LOGGED - SEAN LOOK HERE SEAN LOOK HERE!!!!! DONE')
-    // })
   }
   catch(e){
     console.log(e)

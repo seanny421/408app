@@ -20,7 +20,6 @@ export default function HomeInputBar(props:Props){
         getVidInformation(url)
       })
     }
-    //get videoinformation
     else
       getVidInformation(inputBarText);  
     //reset input
@@ -34,20 +33,27 @@ export default function HomeInputBar(props:Props){
       return (match&&match[7].length==11)? match[7] : false;
   }
 
+  //use the python server to fetch caption data for video
   async function getCaptionForId(vidId: string){
     return await fetch('http://localhost:8080?vidId='+vidId)
     .then(res => res.json())
     .then(data => {
       return data;
     })
-    .catch(err => console.log(err))
+    .catch((err) => {
+      //display errors to the user
+      toast.error('Something went wrong getting caption data, please make sure the video has captions available', {autoClose: 3000})
+    })
   }
 
+  //get appropriate vid information
   async function getVidInformation(urlInput:string){
     const vidId = youtube_parser(urlInput);
     if(vidId === 'false')
       return
     const captions = await getCaptionForId((vidId as string));
+    if(captions === undefined)//make sure we aren't adding video without caption data
+      return
     const url = 'https://www.googleapis.com/youtube/v3/videos?id=' + vidId + '&key=' + process.env.NEXT_PUBLIC_API_KEY + '&part=snippet';  
     const res = await fetch(url)
     .then(res => res.json())

@@ -20,9 +20,7 @@ export default function Timeline(){
     boxShadow: theme === lightTheme ? `0px 10px 17px -10px ${theme.palette.primary.main},0px 5px 20px 0px rgba(238,228,233,0.2)`: '',
     border: theme === lightTheme ? `2px solid ${theme.palette.primary.main}`: "",
     background: `${theme == darkTheme ? '' : '#fff'}`,
-    // color: `${theme == darkTheme ? '#fff' : '#000'}`,
     display: 'flex',alignItems: 'center', overflow: 'auto', overflowX: 'scroll',
-    // padding: '1rem'
   }));
 
   return(
